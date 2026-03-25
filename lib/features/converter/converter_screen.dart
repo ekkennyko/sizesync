@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizesync/data/models/brand.dart';
@@ -17,7 +18,11 @@ class ConverterScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('SizeSync'),
-        actions: [IconButton(icon: const Icon(Icons.search), onPressed: () {})],
+        actions: [
+          if (kDebugMode)
+            IconButton(icon: const Icon(Icons.delete_sweep), tooltip: 'Clear history (debug)', onPressed: () => ref.read(historyProvider.notifier).clear()),
+          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

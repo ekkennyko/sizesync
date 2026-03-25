@@ -35,7 +35,13 @@ class LocalUserRepository implements UserRepository {
   @override
   Future<List<ConversionRecord>> getHistory() async {
     final data = _dataSource.readHistory();
-    return data.map(ConversionRecord.fromJson).toList();
+    final result = <ConversionRecord>[];
+    for (final item in data) {
+      try {
+        result.add(ConversionRecord.fromJson(item));
+      } catch (_) {}
+    }
+    return result;
   }
 
   @override
