@@ -5,4 +5,5 @@ abstract final class AppConstants {
   static const String hiveFavoritesBoxName = 'favorites';
   static const String hiveHistoryBoxName = 'history';
   static const String hiveSettingsBoxName = 'settings';
+  static const String hiveOnboardingKey = 'onboarding_complete';
 }

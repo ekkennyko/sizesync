@@ -39,5 +39,9 @@ class HiveDataSource {
 
   Future<void> writeHistory(List<Map<String, dynamic>> records) => _historyBox.put('data', records);
 
+  bool readOnboardingComplete() => (_settingsBox.get(AppConstants.hiveOnboardingKey) as bool?) ?? false;
+
+  Future<void> writeOnboardingComplete() => _settingsBox.put(AppConstants.hiveOnboardingKey, true);
+
   Box<dynamic> get settingsBox => _settingsBox;
 }

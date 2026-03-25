@@ -1,0 +1,260 @@
+{
+	"brand_slug": "zara",
+	"brand_name": "Zara",
+	"last_updated": "2026-03-25",
+	"source": "official Zara size guides + size.ly + sizecharter",
+	"women": {
+		"size_charts": [
+			{
+				"chart_id": "tops",
+				"name": "Women's Tops",
+				"garment_type": "tops",
+				"applicable_categories": [
+					"tops",
+					"blouses",
+					"tshirts",
+					"shirts"
+				],
+				"measurements": ["bust", "waist"],
+				"unit": "cm",
+				"sizes": [
+					{
+						"label": "XS",
+						"order": 1,
+						"eu": ["34"],
+						"us": ["2"],
+						"uk": ["6"],
+						"values": {
+							"bust": { "min": 80, "max": 82 },
+							"waist": { "min": 62, "max": 64 }
+						}
+					},
+					{
+						"label": "S",
+						"order": 2,
+						"eu": ["36"],
+						"us": ["4"],
+						"uk": ["8"],
+						"values": {
+							"bust": { "min": 84, "max": 86 },
+							"waist": { "min": 66, "max": 68 }
+						}
+					},
+					{
+						"label": "M",
+						"order": 3,
+						"eu": ["38"],
+						"us": ["6"],
+						"uk": ["10"],
+						"values": {
+							"bust": { "min": 88, "max": 90 },
+							"waist": { "min": 70, "max": 72 }
+						}
+					},
+					{
+						"label": "L",
+						"order": 4,
+						"eu": ["40"],
+						"us": ["8"],
+						"uk": ["12"],
+						"values": {
+							"bust": { "min": 94, "max": 96 },
+							"waist": { "min": 76, "max": 78 }
+						}
+					},
+					{
+						"label": "XL",
+						"order": 5,
+						"eu": ["42"],
+						"us": ["10"],
+						"uk": ["14"],
+						"values": {
+							"bust": { "min": 100, "max": 102 },
+							"waist": { "min": 82, "max": 84 }
+						}
+					}
+				]
+			},
+			{
+				"chart_id": "bottoms",
+				"name": "Women's Bottoms",
+				"garment_type": "bottoms",
+				"applicable_categories": [
+					"bottoms",
+					"jeans",
+					"pants",
+					"skirts",
+					"shorts"
+				],
+				"measurements": ["waist", "hips"],
+				"unit": "cm",
+				"sizes": [
+					{
+						"label": "34",
+						"order": 1,
+						"eu": ["34"],
+						"us": ["25", "26"],
+						"uk": ["6"],
+						"values": {
+							"waist": { "min": 59, "max": 63 },
+							"hips": { "min": 83, "max": 87 }
+						}
+					},
+					{
+						"label": "36",
+						"order": 2,
+						"eu": ["36"],
+						"us": ["27"],
+						"uk": ["8"],
+						"values": {
+							"waist": { "min": 63, "max": 67 },
+							"hips": { "min": 87, "max": 91 }
+						}
+					},
+					{
+						"label": "38",
+						"order": 3,
+						"eu": ["38"],
+						"us": ["28", "29"],
+						"uk": ["10"],
+						"values": {
+							"waist": { "min": 67, "max": 71 },
+							"hips": { "min": 91, "max": 95 }
+						}
+					},
+					{
+						"label": "40",
+						"order": 4,
+						"eu": ["40"],
+						"us": ["30"],
+						"uk": ["12"],
+						"values": {
+							"waist": { "min": 71, "max": 75 },
+							"hips": { "min": 95, "max": 99 }
+						}
+					},
+					{
+						"label": "42",
+						"order": 5,
+						"eu": ["42"],
+						"us": ["31", "32"],
+						"uk": ["14"],
+						"values": {
+							"waist": { "min": 75, "max": 79 },
+							"hips": { "min": 99, "max": 103 }
+						}
+					},
+					{
+						"label": "44",
+						"order": 6,
+						"eu": ["44"],
+						"us": ["33", "34"],
+						"uk": ["16"],
+						"values": {
+							"waist": { "min": 79, "max": 83 },
+							"hips": { "min": 103, "max": 107 }
+						}
+					}
+				]
+			}
+		]
+	},
+	"men": {
+		"size_charts": [
+			{
+				"chart_id": "tops",
+				"name": "Men's Tops",
+				"garment_type": "tops",
+				"applicable_categories": [
+					"tops",
+					"tshirts",
+					"polos",
+					"sweaters",
+					"shirts"
+				],
+				"measurements": ["chest"],
+				"unit": "cm",
+				"sizes": [
+					{
+						"label": "S",
+						"order": 1,
+						"eu": ["46"],
+						"us": ["36"],
+						"values": { "chest": { "min": 89, "max": 93 } }
+					},
+					{
+						"label": "M",
+						"order": 2,
+						"eu": ["48"],
+						"us": ["38"],
+						"values": { "chest": { "min": 94, "max": 98 } }
+					},
+					{
+						"label": "L",
+						"order": 3,
+						"eu": ["50"],
+						"us": ["40"],
+						"values": { "chest": { "min": 99, "max": 103 } }
+					},
+					{
+						"label": "XL",
+						"order": 4,
+						"eu": ["52"],
+						"us": ["42"],
+						"values": { "chest": { "min": 104, "max": 108 } }
+					},
+					{
+						"label": "XXL",
+						"order": 5,
+						"eu": ["54"],
+						"us": ["44"],
+						"values": { "chest": { "min": 109, "max": 114 } }
+					}
+				]
+			},
+			{
+				"chart_id": "bottoms",
+				"name": "Men's Bottoms",
+				"garment_type": "bottoms",
+				"applicable_categories": [
+					"bottoms",
+					"jeans",
+					"pants",
+					"shorts"
+				],
+				"measurements": ["waist"],
+				"unit": "cm",
+				"sizes": [
+					{
+						"label": "S",
+						"order": 1,
+						"eu": ["38", "40"],
+						"us": ["28", "30"],
+						"values": { "waist": { "min": 71, "max": 80 } }
+					},
+					{
+						"label": "M",
+						"order": 2,
+						"eu": ["42", "44"],
+						"us": ["32", "34"],
+						"values": { "waist": { "min": 80, "max": 88 } }
+					},
+					{
+						"label": "L",
+						"order": 3,
+						"eu": ["46"],
+						"us": ["36"],
+						"values": { "waist": { "min": 89, "max": 91 } }
+					},
+					{
+						"label": "XL",
+						"order": 4,
+						"eu": ["48", "50"],
+						"us": ["38", "40"],
+						"values": { "waist": { "min": 95, "max": 102 } }
+					}
+				]
+			}
+		]
+	}
+}
