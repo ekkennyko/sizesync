@@ -1,20 +1,102 @@
 [
-  {
-    "id": "zara",
-    "name": "Zara",
-    "country": "ES",
-    "isPremium": false
-  },
-  {
-    "id": "hm",
-    "name": "H&M",
-    "country": "SE",
-    "isPremium": false
-  },
-  {
-    "id": "uniqlo",
-    "name": "Uniqlo",
-    "country": "JP",
-    "isPremium": false
-  }
+	{
+		"id": "zara",
+		"name": "Zara",
+		"slug": "zara",
+		"country": "ES",
+		"logoAsset": "assets/logos/zara.svg",
+		"website": "https://www.zara.com",
+		"isPremium": false,
+		"categories": ["tops", "bottoms", "shoes"]
+	},
+	{
+		"id": "hm",
+		"name": "H&M",
+		"slug": "hm",
+		"country": "SE",
+		"logoAsset": "assets/logos/hm.svg",
+		"website": "https://www.hm.com",
+		"isPremium": false,
+		"categories": ["tops", "bottoms", "shoes"]
+	},
+	{
+		"id": "nike",
+		"name": "Nike",
+		"slug": "nike",
+		"country": "US",
+		"logoAsset": "assets/logos/nike.svg",
+		"website": "https://www.nike.com",
+		"isPremium": false,
+		"categories": ["tops", "bottoms", "shoes"]
+	},
+	{
+		"id": "adidas",
+		"name": "Adidas",
+		"slug": "adidas",
+		"country": "DE",
+		"logoAsset": "assets/logos/adidas.svg",
+		"website": "https://www.adidas.com",
+		"isPremium": false,
+		"categories": ["tops", "bottoms", "shoes"]
+	},
+	{
+		"id": "uniqlo",
+		"name": "Uniqlo",
+		"slug": "uniqlo",
+		"country": "JP",
+		"logoAsset": "assets/logos/uniqlo.svg",
+		"website": "https://www.uniqlo.com",
+		"isPremium": false,
+		"categories": ["tops", "bottoms"]
+	},
+	{
+		"id": "mango",
+		"name": "Mango",
+		"slug": "mango",
+		"country": "ES",
+		"logoAsset": "assets/logos/mango.svg",
+		"website": "https://www.mango.com",
+		"isPremium": true,
+		"categories": ["tops", "bottoms", "shoes"]
+	},
+	{
+		"id": "levis",
+		"name": "Levi's",
+		"slug": "levis",
+		"country": "US",
+		"logoAsset": "assets/logos/levis.svg",
+		"website": "https://www.levi.com",
+		"isPremium": true,
+		"categories": ["bottoms"]
+	},
+	{
+		"id": "calvinklein",
+		"name": "Calvin Klein",
+		"slug": "calvinklein",
+		"country": "US",
+		"logoAsset": "assets/logos/calvinklein.svg",
+		"website": "https://www.calvinklein.com",
+		"isPremium": true,
+		"categories": ["tops", "bottoms"]
+	},
+	{
+		"id": "asos",
+		"name": "ASOS",
+		"slug": "asos",
+		"country": "GB",
+		"logoAsset": "assets/logos/asos.svg",
+		"website": "https://www.asos.com",
+		"isPremium": true,
+		"categories": ["tops", "bottoms", "shoes"]
+	},
+	{
+		"id": "pullandbear",
+		"name": "Pull&Bear",
+		"slug": "pullandbear",
+		"country": "ES",
+		"logoAsset": "assets/logos/pullandbear.svg",
+		"website": "https://www.pullandbear.com",
+		"isPremium": true,
+		"categories": ["tops", "bottoms", "shoes"]
+	}
 ]

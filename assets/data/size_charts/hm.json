@@ -1,16 +1,148 @@
-{
-  "brandId": "hm",
-  "categories": {
-    "tops": {
-      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
-      "measurements": {
-        "XS": {"chest": 78, "waist": 60},
-        "S":  {"chest": 82, "waist": 64},
-        "M":  {"chest": 86, "waist": 68},
-        "L":  {"chest": 94, "waist": 76},
-        "XL": {"chest": 102,"waist": 84},
-        "XXL":{"chest": 110,"waist": 92}
-      }
-    }
-  }
-}
+[
+	{
+		"brandSlug": "hm",
+		"categorySlug": "tops",
+		"garmentType": "tops",
+		"sizes": [
+			{
+				"label": "XS",
+				"eu": "32",
+				"us": "0/2",
+				"uk": "4/6",
+				"asia": "155/76A",
+				"bustMinCm": 76,
+				"bustMaxCm": 80,
+				"waistMinCm": 60,
+				"waistMaxCm": 64
+			},
+			{
+				"label": "S",
+				"eu": "36",
+				"us": "4/6",
+				"uk": "8/10",
+				"asia": "160/84A",
+				"bustMinCm": 84,
+				"bustMaxCm": 88,
+				"waistMinCm": 68,
+				"waistMaxCm": 72
+			},
+			{
+				"label": "M",
+				"eu": "40",
+				"us": "8/10",
+				"uk": "12/14",
+				"asia": "165/92A",
+				"bustMinCm": 92,
+				"bustMaxCm": 96,
+				"waistMinCm": 76,
+				"waistMaxCm": 80
+			},
+			{
+				"label": "L",
+				"eu": "44",
+				"us": "12/14",
+				"uk": "16/18",
+				"asia": "170/100A",
+				"bustMinCm": 100,
+				"bustMaxCm": 104,
+				"waistMinCm": 84,
+				"waistMaxCm": 88
+			},
+			{
+				"label": "XL",
+				"eu": "48",
+				"us": "16/18",
+				"uk": "20/22",
+				"asia": "175/108A",
+				"bustMinCm": 108,
+				"bustMaxCm": 112,
+				"waistMinCm": 92,
+				"waistMaxCm": 96
+			},
+			{
+				"label": "XXL",
+				"eu": "52",
+				"us": "20/22",
+				"uk": "24/26",
+				"asia": "175/116A",
+				"bustMinCm": 116,
+				"bustMaxCm": 120,
+				"waistMinCm": 100,
+				"waistMaxCm": 104
+			}
+		]
+	},
+	{
+		"brandSlug": "hm",
+		"categorySlug": "bottoms",
+		"garmentType": "bottoms",
+		"sizes": [
+			{
+				"label": "34",
+				"eu": "34",
+				"us": "25",
+				"uk": "6",
+				"asia": "S",
+				"waistMinCm": 61,
+				"waistMaxCm": 65,
+				"hipsMinCm": 87,
+				"hipsMaxCm": 91
+			},
+			{
+				"label": "36",
+				"eu": "36",
+				"us": "26/27",
+				"uk": "8",
+				"asia": "M",
+				"waistMinCm": 65,
+				"waistMaxCm": 69,
+				"hipsMinCm": 91,
+				"hipsMaxCm": 95
+			},
+			{
+				"label": "38",
+				"eu": "38",
+				"us": "28",
+				"uk": "10",
+				"asia": "M",
+				"waistMinCm": 69,
+				"waistMaxCm": 73,
+				"hipsMinCm": 95,
+				"hipsMaxCm": 99
+			},
+			{
+				"label": "40",
+				"eu": "40",
+				"us": "29/30",
+				"uk": "12",
+				"asia": "L",
+				"waistMinCm": 73,
+				"waistMaxCm": 77,
+				"hipsMinCm": 99,
+				"hipsMaxCm": 103
+			},
+			{
+				"label": "42",
+				"eu": "42",
+				"us": "31/32",
+				"uk": "14",
+				"asia": "L",
+				"waistMinCm": 77,
+				"waistMaxCm": 81,
+				"hipsMinCm": 103,
+				"hipsMaxCm": 107
+			},
+			{
+				"label": "44",
+				"eu": "44",
+				"us": "33/34",
+				"uk": "16",
+				"asia": "XL",
+				"waistMinCm": 81,
+				"waistMaxCm": 85,
+				"hipsMinCm": 107,
+				"hipsMaxCm": 111
+			}
+		]
+	}
+]

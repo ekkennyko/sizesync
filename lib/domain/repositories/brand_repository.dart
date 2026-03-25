@@ -1,4 +1,6 @@
+import 'package:sizesync/data/models/brand.dart';
+
 abstract interface class BrandRepository {
-  Future<List<Map<String, dynamic>>> getBrands();
-  Future<Map<String, dynamic>?> getBrandById(String id);
+  Future<List<Brand>> getBrands();
+  Future<Brand?> getBrandById(String id);
 }

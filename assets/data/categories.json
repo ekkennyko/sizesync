@@ -1,18 +1,20 @@
 [
-  {
-    "id": "tops",
-    "name": "Tops"
-  },
-  {
-    "id": "bottoms",
-    "name": "Bottoms"
-  },
-  {
-    "id": "shoes",
-    "name": "Shoes"
-  },
-  {
-    "id": "outerwear",
-    "name": "Outerwear"
-  }
+	{
+		"id": "tops",
+		"name": "Tops",
+		"slug": "tops",
+		"icon": "checkroom"
+	},
+	{
+		"id": "bottoms",
+		"name": "Bottoms",
+		"slug": "bottoms",
+		"icon": "dry_cleaning"
+	},
+	{
+		"id": "shoes",
+		"name": "Shoes",
+		"slug": "shoes",
+		"icon": "steps"
+	}
 ]

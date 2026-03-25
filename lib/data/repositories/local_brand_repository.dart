@@ -1,4 +1,5 @@
 import 'package:sizesync/data/datasources/asset_data_source.dart';
+import 'package:sizesync/data/models/brand.dart';
 import 'package:sizesync/domain/repositories/brand_repository.dart';
 
 class LocalBrandRepository implements BrandRepository {
@@ -7,16 +8,13 @@ class LocalBrandRepository implements BrandRepository {
   final AssetDataSource _dataSource;
 
   @override
-  Future<List<Map<String, dynamic>>> getBrands() async {
-    final list = await _dataSource.loadJsonList('assets/data/brands.json');
-    return list.cast<Map<String, dynamic>>();
-  }
+  Future<List<Brand>> getBrands() => _dataSource.loadBrands();
 
   @override
-  Future<Map<String, dynamic>?> getBrandById(String id) async {
-    final brands = await getBrands();
+  Future<Brand?> getBrandById(String id) async {
+    final brands = await _dataSource.loadBrands();
     try {
-      return brands.firstWhere((b) => b['id'] == id);
+      return brands.firstWhere((b) => b.id == id);
     } on StateError {
       return null;
     }
