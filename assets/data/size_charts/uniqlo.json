@@ -9,16 +9,81 @@
 				"chart_id": "tops",
 				"name": "Women's Tops",
 				"garment_type": "tops",
-				"applicable_categories": ["tops", "blouses", "tshirts", "shirts"],
+				"applicable_categories": [
+					"tops",
+					"blouses",
+					"tshirts",
+					"shirts"
+				],
 				"measurements": ["bust", "waist"],
 				"unit": "cm",
 				"sizes": [
-					{"label": "XS", "order": 1, "eu": ["32", "34"], "us": ["0", "2"],   "uk": ["4", "6"],   "values": {"bust": {"min": 80, "max": 84}, "waist": {"min": 62, "max": 66}}},
-					{"label": "S",  "order": 2, "eu": ["36"],        "us": ["4"],        "uk": ["8"],        "values": {"bust": {"min": 84, "max": 88}, "waist": {"min": 66, "max": 70}}},
-					{"label": "M",  "order": 3, "eu": ["38", "40"],  "us": ["6", "8"],   "uk": ["10", "12"], "values": {"bust": {"min": 88, "max": 94}, "waist": {"min": 70, "max": 74}}},
-					{"label": "L",  "order": 4, "eu": ["42"],        "us": ["10", "12"], "uk": ["14"],       "values": {"bust": {"min": 96, "max": 100}, "waist": {"min": 78, "max": 82}}},
-					{"label": "XL", "order": 5, "eu": ["44"],        "us": ["14"],       "uk": ["16"],       "values": {"bust": {"min": 104, "max": 108}, "waist": {"min": 86, "max": 90}}},
-					{"label": "XXL","order": 6, "eu": ["46"],        "us": ["16"],       "uk": ["18"],       "values": {"bust": {"min": 112, "max": 116}, "waist": {"min": 94, "max": 98}}}
+					{
+						"label": "XS",
+						"order": 1,
+						"eu": ["32", "34"],
+						"us": ["0", "2"],
+						"uk": ["4", "6"],
+						"values": {
+							"bust": { "min": 80, "max": 84 },
+							"waist": { "min": 62, "max": 66 }
+						}
+					},
+					{
+						"label": "S",
+						"order": 2,
+						"eu": ["36"],
+						"us": ["4"],
+						"uk": ["8"],
+						"values": {
+							"bust": { "min": 84, "max": 88 },
+							"waist": { "min": 66, "max": 70 }
+						}
+					},
+					{
+						"label": "M",
+						"order": 3,
+						"eu": ["38", "40"],
+						"us": ["6", "8"],
+						"uk": ["10", "12"],
+						"values": {
+							"bust": { "min": 88, "max": 94 },
+							"waist": { "min": 70, "max": 74 }
+						}
+					},
+					{
+						"label": "L",
+						"order": 4,
+						"eu": ["42"],
+						"us": ["10", "12"],
+						"uk": ["14"],
+						"values": {
+							"bust": { "min": 96, "max": 100 },
+							"waist": { "min": 78, "max": 82 }
+						}
+					},
+					{
+						"label": "XL",
+						"order": 5,
+						"eu": ["44"],
+						"us": ["14"],
+						"uk": ["16"],
+						"values": {
+							"bust": { "min": 104, "max": 108 },
+							"waist": { "min": 86, "max": 90 }
+						}
+					},
+					{
+						"label": "XXL",
+						"order": 6,
+						"eu": ["46"],
+						"us": ["16"],
+						"uk": ["18"],
+						"values": {
+							"bust": { "min": 112, "max": 116 },
+							"waist": { "min": 94, "max": 98 }
+						}
+					}
 				]
 			}
 		]
@@ -33,12 +98,72 @@
 				"measurements": ["chest", "waist"],
 				"unit": "cm",
 				"sizes": [
-					{"label": "XS", "order": 1, "eu": ["44", "46"], "us": ["XS"],  "uk": ["XS"],  "values": {"chest": {"min": 82, "max": 86},   "waist": {"min": 68, "max": 72}}},
-					{"label": "S",  "order": 2, "eu": ["46", "48"], "us": ["S"],   "uk": ["S"],   "values": {"chest": {"min": 86, "max": 90},   "waist": {"min": 72, "max": 76}}},
-					{"label": "M",  "order": 3, "eu": ["48", "50"], "us": ["M"],   "uk": ["M"],   "values": {"chest": {"min": 90, "max": 96},   "waist": {"min": 76, "max": 82}}},
-					{"label": "L",  "order": 4, "eu": ["52"],       "us": ["L"],   "uk": ["L"],   "values": {"chest": {"min": 96, "max": 102},  "waist": {"min": 82, "max": 88}}},
-					{"label": "XL", "order": 5, "eu": ["54"],       "us": ["XL"],  "uk": ["XL"],  "values": {"chest": {"min": 102, "max": 108}, "waist": {"min": 88, "max": 94}}},
-					{"label": "XXL","order": 6, "eu": ["56"],       "us": ["XXL"], "uk": ["XXL"], "values": {"chest": {"min": 108, "max": 114}, "waist": {"min": 94, "max": 100}}}
+					{
+						"label": "XS",
+						"order": 1,
+						"eu": ["44", "46"],
+						"us": ["XS"],
+						"uk": ["XS"],
+						"values": {
+							"chest": { "min": 82, "max": 86 },
+							"waist": { "min": 68, "max": 72 }
+						}
+					},
+					{
+						"label": "S",
+						"order": 2,
+						"eu": ["46", "48"],
+						"us": ["S"],
+						"uk": ["S"],
+						"values": {
+							"chest": { "min": 86, "max": 90 },
+							"waist": { "min": 72, "max": 76 }
+						}
+					},
+					{
+						"label": "M",
+						"order": 3,
+						"eu": ["48", "50"],
+						"us": ["M"],
+						"uk": ["M"],
+						"values": {
+							"chest": { "min": 90, "max": 96 },
+							"waist": { "min": 76, "max": 82 }
+						}
+					},
+					{
+						"label": "L",
+						"order": 4,
+						"eu": ["52"],
+						"us": ["L"],
+						"uk": ["L"],
+						"values": {
+							"chest": { "min": 96, "max": 102 },
+							"waist": { "min": 82, "max": 88 }
+						}
+					},
+					{
+						"label": "XL",
+						"order": 5,
+						"eu": ["54"],
+						"us": ["XL"],
+						"uk": ["XL"],
+						"values": {
+							"chest": { "min": 102, "max": 108 },
+							"waist": { "min": 88, "max": 94 }
+						}
+					},
+					{
+						"label": "XXL",
+						"order": 6,
+						"eu": ["56"],
+						"us": ["XXL"],
+						"uk": ["XXL"],
+						"values": {
+							"chest": { "min": 108, "max": 114 },
+							"waist": { "min": 94, "max": 100 }
+						}
+					}
 				]
 			}
 		]
