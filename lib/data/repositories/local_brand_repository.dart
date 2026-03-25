@@ -8,15 +8,24 @@ class LocalBrandRepository implements BrandRepository {
   final AssetDataSource _dataSource;
 
   @override
-  Future<List<Brand>> getBrands() => _dataSource.loadBrands();
+  Future<List<Brand>> getAllBrands() => _dataSource.loadBrands();
 
   @override
-  Future<Brand?> getBrandById(String id) async {
+  Future<List<Brand>> getFreeBrands() async {
     final brands = await _dataSource.loadBrands();
-    try {
-      return brands.firstWhere((b) => b.id == id);
-    } on StateError {
-      return null;
-    }
+    return brands.where((b) => !b.isPremium).toList();
+  }
+
+  @override
+  Future<List<Brand>> searchBrands(String query) async {
+    final brands = await _dataSource.loadBrands();
+    final lower = query.toLowerCase();
+    return brands.where((b) => b.name.toLowerCase().contains(lower)).toList();
+  }
+
+  @override
+  Future<Brand?> getBrandBySlug(String slug) async {
+    final brands = await _dataSource.loadBrands();
+    return brands.where((b) => b.slug == slug).firstOrNull;
   }
 }
