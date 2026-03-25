@@ -1,0 +1,16 @@
+{
+  "brandId": "uniqlo",
+  "categories": {
+    "tops": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "measurements": {
+        "XS": {"chest": 82, "waist": 64},
+        "S":  {"chest": 86, "waist": 68},
+        "M":  {"chest": 90, "waist": 72},
+        "L":  {"chest": 98, "waist": 80},
+        "XL": {"chest": 106,"waist": 88},
+        "XXL":{"chest": 114,"waist": 96}
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "brandId": "hm",
+  "categories": {
+    "tops": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "measurements": {
+        "XS": {"chest": 78, "waist": 60},
+        "S":  {"chest": 82, "waist": 64},
+        "M":  {"chest": 86, "waist": 68},
+        "L":  {"chest": 94, "waist": 76},
+        "XL": {"chest": 102,"waist": 84},
+        "XXL":{"chest": 110,"waist": 92}
+      }
+    }
+  }
+}

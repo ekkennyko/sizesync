@@ -1,0 +1,16 @@
+{
+  "brandId": "zara",
+  "categories": {
+    "tops": {
+      "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+      "measurements": {
+        "XS": {"chest": 80, "waist": 62},
+        "S":  {"chest": 84, "waist": 66},
+        "M":  {"chest": 88, "waist": 70},
+        "L":  {"chest": 96, "waist": 78},
+        "XL": {"chest": 104,"waist": 86},
+        "XXL":{"chest": 112,"waist": 94}
+      }
+    }
+  }
+}
