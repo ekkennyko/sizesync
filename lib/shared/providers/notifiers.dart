@@ -22,20 +22,26 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
   }
 }
 
-class FavoritesNotifier extends StateNotifier<List<String>> {
-  FavoritesNotifier(this._repository) : super([]) {
+class FavoritesNotifier extends StateNotifier<Set<String>> {
+  FavoritesNotifier(this._repository) : super({}) {
     _load();
   }
 
   final UserRepository _repository;
 
   Future<void> _load() async {
-    state = await _repository.getFavoriteBrandSlugs();
+    state = (await _repository.getFavoriteBrandSlugs()).toSet();
   }
 
   Future<void> toggle(String brandSlug) async {
     await _repository.toggleFavorite(brandSlug);
-    state = await _repository.getFavoriteBrandSlugs();
+    final updated = Set<String>.from(state);
+    if (updated.contains(brandSlug)) {
+      updated.remove(brandSlug);
+    } else {
+      updated.add(brandSlug);
+    }
+    state = updated;
   }
 }
 
@@ -52,7 +58,8 @@ class HistoryNotifier extends StateNotifier<List<ConversionRecord>> {
 
   Future<void> add(ConversionRecord record) async {
     await _repository.addToHistory(record);
-    state = [record, ...state];
+    final updated = [record, ...state];
+    state = updated.length > 50 ? updated.sublist(0, 50) : updated;
   }
 
   Future<void> clear() async {

@@ -30,5 +30,5 @@ final categoriesProvider = FutureProvider<List<Category>>((ref) => ref.watch(ass
 
 // State
 final userProfileProvider = StateNotifierProvider<UserProfileNotifier, UserProfile?>((ref) => UserProfileNotifier(ref.watch(userRepositoryProvider)));
-final favoritesProvider = StateNotifierProvider<FavoritesNotifier, List<String>>((ref) => FavoritesNotifier(ref.watch(userRepositoryProvider)));
+final favoritesProvider = StateNotifierProvider<FavoritesNotifier, Set<String>>((ref) => FavoritesNotifier(ref.watch(userRepositoryProvider)));
 final historyProvider = StateNotifierProvider<HistoryNotifier, List<ConversionRecord>>((ref) => HistoryNotifier(ref.watch(userRepositoryProvider)));

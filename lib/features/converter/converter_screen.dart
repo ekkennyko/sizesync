@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizesync/data/models/brand.dart';
+import 'package:sizesync/data/models/conversion_record.dart';
 import 'package:sizesync/data/models/size_chart.dart';
 import 'package:sizesync/features/converter/brand_picker_sheet.dart';
 import 'package:sizesync/features/converter/converter_state.dart';
@@ -23,6 +24,7 @@ class ConverterScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const _FavoritesSection(),
             _BrandRow(fromBrand: state.fromBrand, toBrand: state.toBrand),
             const SizedBox(height: 16),
             _CategoryChips(selected: state.categorySlug, fromBrand: state.fromBrand),
@@ -40,6 +42,8 @@ class ConverterScreen extends ConsumerWidget {
                   ? _ResultCard(key: ValueKey(state.result!.label), result: state.result!, toBrand: state.toBrand!, recommendedSize: state.recommendedSize)
                   : const SizedBox.shrink(key: ValueKey('empty')),
             ),
+            const SizedBox(height: 8),
+            const _RecentSection(),
           ],
         ),
       ),
@@ -319,5 +323,156 @@ class _ResultCard extends StatelessWidget {
         ],
       ],
     );
+  }
+}
+
+class _FavoritesSection extends ConsumerWidget {
+  const _FavoritesSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final favorites = ref.watch(favoritesProvider);
+    if (favorites.isEmpty) return const SizedBox.shrink();
+
+    final brandsAsync = ref.watch(allBrandsProvider);
+    return brandsAsync.when(
+      loading: () => const SizedBox.shrink(),
+      error: (_, _) => const SizedBox.shrink(),
+      data: (brands) {
+        final favBrands = brands.where((b) => favorites.contains(b.slug)).toList();
+        if (favBrands.isEmpty) return const SizedBox.shrink();
+        final theme = Theme.of(context);
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Favourites', style: theme.textTheme.labelLarge),
+            const SizedBox(height: 8),
+            SizedBox(
+              height: 68,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: favBrands.length,
+                separatorBuilder: (_, _) => const SizedBox(width: 8),
+                itemBuilder: (ctx, i) {
+                  final brand = favBrands[i];
+                  return GestureDetector(
+                    onTap: () => ref.read(converterProvider.notifier).setFromBrand(brand),
+                    onLongPress: () => _confirmRemove(ctx, ref, brand.slug, brand.name),
+                    child: _FavouriteBrandChip(brand: brand),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 12),
+          ],
+        );
+      },
+    );
+  }
+
+  void _confirmRemove(BuildContext context, WidgetRef ref, String slug, String name) {
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Remove from favourites?'),
+        content: Text(name),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () {
+              ref.read(favoritesProvider.notifier).toggle(slug);
+              Navigator.pop(ctx);
+            },
+            child: const Text('Remove'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FavouriteBrandChip extends StatelessWidget {
+  const _FavouriteBrandChip({required this.brand});
+
+  final Brand brand;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return SizedBox(
+      width: 56,
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 22,
+            backgroundColor: theme.colorScheme.primaryContainer,
+            child: Text(
+              brand.name[0].toUpperCase(),
+              style: TextStyle(color: theme.colorScheme.onPrimaryContainer, fontWeight: FontWeight.bold),
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(brand.name, style: theme.textTheme.labelSmall, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center),
+        ],
+      ),
+    );
+  }
+}
+
+class _RecentSection extends ConsumerWidget {
+  const _RecentSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final history = ref.watch(historyProvider);
+    if (history.isEmpty) return const SizedBox.shrink();
+
+    final brandsAsync = ref.watch(allBrandsProvider);
+    return brandsAsync.when(
+      loading: () => const SizedBox.shrink(),
+      error: (_, _) => const SizedBox.shrink(),
+      data: (brands) {
+        final brandNames = {for (final b in brands) b.slug: b.name};
+        final theme = Theme.of(context);
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text('Recent', style: theme.textTheme.labelLarge),
+                const Spacer(),
+                TextButton(onPressed: () => ref.read(historyProvider.notifier).clear(), child: const Text('Clear')),
+              ],
+            ),
+            SizedBox(
+              height: 40,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: history.length,
+                separatorBuilder: (_, _) => const SizedBox(width: 8),
+                itemBuilder: (_, i) =>
+                    _HistoryChip(record: history[i], brandNames: brandNames, onTap: () => ref.read(converterProvider.notifier).restoreFromHistory(history[i])),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _HistoryChip extends StatelessWidget {
+  const _HistoryChip({required this.record, required this.brandNames, required this.onTap});
+
+  final ConversionRecord record;
+  final Map<String, String> brandNames;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final from = brandNames[record.fromBrandSlug] ?? record.fromBrandSlug;
+    final to = brandNames[record.toBrandSlug] ?? record.toBrandSlug;
+    return ActionChip(label: Text('$from ${record.fromSize} → $to ${record.toSize}'), onPressed: onTap);
   }
 }

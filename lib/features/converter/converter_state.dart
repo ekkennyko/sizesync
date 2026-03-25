@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizesync/data/models/brand.dart';
 import 'package:sizesync/data/models/conversion_record.dart';
 import 'package:sizesync/data/models/size_chart.dart';
+import 'package:sizesync/domain/repositories/brand_repository.dart';
 import 'package:sizesync/domain/repositories/size_chart_repository.dart';
 import 'package:sizesync/domain/repositories/user_repository.dart';
 import 'package:sizesync/shared/providers/providers.dart';
@@ -27,10 +28,11 @@ class ConverterState {
 }
 
 class ConverterNotifier extends StateNotifier<ConverterState> {
-  ConverterNotifier(this._sizeChartRepo, this._userRepo) : super(const ConverterState());
+  ConverterNotifier(this._sizeChartRepo, this._userRepo, this._brandRepo) : super(const ConverterState());
 
   final SizeChartRepository _sizeChartRepo;
   final UserRepository _userRepo;
+  final BrandRepository _brandRepo;
 
   void setFromBrand(Brand brand) {
     state = ConverterState(fromBrand: brand, toBrand: state.toBrand, categorySlug: state.categorySlug);
@@ -86,10 +88,18 @@ class ConverterNotifier extends StateNotifier<ConverterState> {
       recommendedSize: recommended,
     );
   }
+
+  Future<void> restoreFromHistory(ConversionRecord record) async {
+    final fromBrand = await _brandRepo.getBrandBySlug(record.fromBrandSlug);
+    final toBrand = await _brandRepo.getBrandBySlug(record.toBrandSlug);
+    if (fromBrand == null || toBrand == null) return;
+    state = ConverterState(fromBrand: fromBrand, toBrand: toBrand, categorySlug: record.categorySlug);
+    await selectSize(record.fromSize);
+  }
 }
 
 final converterProvider = StateNotifierProvider<ConverterNotifier, ConverterState>(
-  (ref) => ConverterNotifier(ref.watch(sizeChartRepositoryProvider), ref.watch(userRepositoryProvider)),
+  (ref) => ConverterNotifier(ref.watch(sizeChartRepositoryProvider), ref.watch(userRepositoryProvider), ref.watch(brandRepositoryProvider)),
 );
 
 final fromSizeEntriesProvider = FutureProvider.autoDispose.family<List<SizeEntry>, ({String brandSlug, String categorySlug})>((ref, params) async {

@@ -129,7 +129,12 @@ class _BrandPickerSheetState extends ConsumerState<BrandPickerSheet> {
                       ],
                       SliverList.builder(
                         itemCount: filtered.length,
-                        itemBuilder: (_, i) => _BrandTile(brand: filtered[i], onTap: () => _onBrandTap(context, filtered[i])),
+                        itemBuilder: (_, i) => _BrandTile(
+                          brand: filtered[i],
+                          onTap: () => _onBrandTap(context, filtered[i]),
+                          isFavorite: favorites.contains(filtered[i].slug),
+                          onFavoriteTap: () => ref.read(favoritesProvider.notifier).toggle(filtered[i].slug),
+                        ),
                       ),
                     ],
                   );
@@ -173,10 +178,12 @@ class _FavouriteAvatar extends StatelessWidget {
 }
 
 class _BrandTile extends StatelessWidget {
-  const _BrandTile({required this.brand, required this.onTap});
+  const _BrandTile({required this.brand, required this.onTap, required this.isFavorite, required this.onFavoriteTap});
 
   final Brand brand;
   final VoidCallback onTap;
+  final bool isFavorite;
+  final VoidCallback onFavoriteTap;
 
   @override
   Widget build(BuildContext context) {
@@ -188,8 +195,11 @@ class _BrandTile extends StatelessWidget {
       ),
       title: Text(brand.name),
       subtitle: Text(brand.country),
-      trailing: brand.isPremium
-          ? Container(
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (brand.isPremium) ...[
+            Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(color: theme.colorScheme.secondaryContainer, borderRadius: BorderRadius.circular(12)),
               child: Row(
@@ -200,8 +210,16 @@ class _BrandTile extends StatelessWidget {
                   Text('Premium', style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.onSecondaryContainer)),
                 ],
               ),
-            )
-          : null,
+            ),
+            const SizedBox(width: 4),
+          ],
+          IconButton(
+            icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+            color: isFavorite ? theme.colorScheme.primary : null,
+            onPressed: onFavoriteTap,
+          ),
+        ],
+      ),
       onTap: onTap,
     );
   }
