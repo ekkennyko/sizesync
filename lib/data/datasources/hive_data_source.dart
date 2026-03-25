@@ -43,5 +43,9 @@ class HiveDataSource {
 
   Future<void> writeOnboardingComplete() => _settingsBox.put(AppConstants.hiveOnboardingKey, true);
 
+  bool readIsPremium() => (_settingsBox.get(AppConstants.hivePremiumKey) as bool?) ?? false;
+
+  Future<void> writeIsPremium({required bool value}) => _settingsBox.put(AppConstants.hivePremiumKey, value);
+
   Box<dynamic> get settingsBox => _settingsBox;
 }

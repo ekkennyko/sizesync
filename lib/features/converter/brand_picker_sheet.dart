@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sizesync/data/models/brand.dart';
 import 'package:sizesync/shared/providers/providers.dart';
 
@@ -44,13 +45,9 @@ class _BrandPickerSheetState extends ConsumerState<BrandPickerSheet> {
   }
 
   void _onBrandTap(BuildContext context, Brand brand) {
-    if (brand.isPremium) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Available in Premium'),
-          action: SnackBarAction(label: 'Learn more', onPressed: () {}),
-        ),
-      );
+    if (brand.isPremium && !ref.read(purchaseProvider)) {
+      Navigator.of(context).pop();
+      context.push('/paywall');
       return;
     }
     Navigator.of(context).pop();
@@ -59,7 +56,7 @@ class _BrandPickerSheetState extends ConsumerState<BrandPickerSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final brandsAsync = ref.watch(allBrandsProvider);
+    final brandsAsync = ref.watch(allBrandsUnfilteredProvider);
     final favorites = ref.watch(favoritesProvider);
     final theme = Theme.of(context);
 

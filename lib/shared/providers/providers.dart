@@ -18,11 +18,18 @@ final assetDataSourceProvider = Provider<AssetDataSource>((_) => AssetDataSource
 final hiveDataSourceProvider = Provider<HiveDataSource>((_) => HiveDataSource());
 final purchaseServiceProvider = Provider<PurchaseService>((_) => PurchaseService());
 
-final brandRepositoryProvider = Provider<BrandRepository>((ref) => LocalBrandRepository(ref.watch(assetDataSourceProvider)));
+final purchaseProvider = StateNotifierProvider<PurchaseNotifier, bool>(
+  (ref) => PurchaseNotifier(ref.watch(purchaseServiceProvider), ref.watch(hiveDataSourceProvider)),
+);
+
+final brandRepositoryProvider = Provider<BrandRepository>(
+  (ref) => LocalBrandRepository(ref.watch(assetDataSourceProvider), isPremium: ref.watch(purchaseProvider)),
+);
 final sizeChartRepositoryProvider = Provider<SizeChartRepository>((ref) => LocalSizeChartRepository(ref.watch(assetDataSourceProvider)));
 final userRepositoryProvider = Provider<UserRepository>((ref) => LocalUserRepository(ref.watch(hiveDataSourceProvider)));
 
 final allBrandsProvider = FutureProvider<List<Brand>>((ref) => ref.watch(brandRepositoryProvider).getAllBrands());
+final allBrandsUnfilteredProvider = FutureProvider<List<Brand>>((ref) => ref.watch(assetDataSourceProvider).loadBrands());
 final categoriesProvider = FutureProvider<List<Category>>((ref) => ref.watch(assetDataSourceProvider).loadCategories());
 
 final userProfileProvider = StateNotifierProvider<UserProfileNotifier, UserProfile?>((ref) => UserProfileNotifier(ref.watch(userRepositoryProvider)));

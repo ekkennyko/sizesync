@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sizesync/data/datasources/hive_data_source.dart';
+import 'package:sizesync/data/datasources/purchase_service.dart';
 import 'package:sizesync/data/models/conversion_record.dart';
 import 'package:sizesync/data/models/user_profile.dart';
 import 'package:sizesync/domain/repositories/user_repository.dart';
@@ -65,5 +69,37 @@ class HistoryNotifier extends StateNotifier<List<ConversionRecord>> {
   Future<void> clear() async {
     await _repository.clearHistory();
     state = [];
+  }
+}
+
+class PurchaseNotifier extends StateNotifier<bool> {
+  PurchaseNotifier(this._service, this._hive) : super(false) {
+    _init();
+  }
+
+  final PurchaseService _service;
+  final HiveDataSource _hive;
+  StreamSubscription<bool>? _sub;
+
+  Future<void> _init() async {
+    final cached = _hive.readIsPremium();
+    _service.seedCachedStatus(value: cached);
+    state = _service.isPremium;
+
+    _sub = _service.isPremiumStream.listen((value) {
+      _hive.writeIsPremium(value: value);
+      state = _service.isPremium;
+    });
+
+    await _service.init();
+  }
+
+  Future<bool> buyPremium() => _service.buyPremium();
+  Future<bool> restorePurchases() => _service.restorePurchases();
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
   }
 }

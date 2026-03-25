@@ -3,12 +3,17 @@ import 'package:sizesync/data/models/brand.dart';
 import 'package:sizesync/domain/repositories/brand_repository.dart';
 
 class LocalBrandRepository implements BrandRepository {
-  LocalBrandRepository(this._dataSource);
+  LocalBrandRepository(this._dataSource, {required bool isPremium}) : _isPremium = isPremium;
 
   final AssetDataSource _dataSource;
+  final bool _isPremium;
 
   @override
-  Future<List<Brand>> getAllBrands() => _dataSource.loadBrands();
+  Future<List<Brand>> getAllBrands() async {
+    final brands = await _dataSource.loadBrands();
+    if (_isPremium) return brands;
+    return brands.where((b) => !b.isPremium).toList();
+  }
 
   @override
   Future<List<Brand>> getFreeBrands() async {
