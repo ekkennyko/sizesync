@@ -42,7 +42,8 @@ class LocalUserRepository implements UserRepository {
   Future<void> addToHistory(ConversionRecord record) async {
     final history = _dataSource.readHistory();
     history.insert(0, record.toJson());
-    await _dataSource.writeHistory(history);
+    final capped = history.length > 50 ? history.sublist(0, 50) : history;
+    await _dataSource.writeHistory(capped);
   }
 
   @override
