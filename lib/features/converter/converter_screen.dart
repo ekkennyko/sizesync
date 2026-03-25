@@ -31,17 +31,7 @@ class ConverterScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             if (state.fromBrand != null) _SizeGrid(brandSlug: state.fromBrand!.slug, categorySlug: state.categorySlug, selectedLabel: state.selectedSizeLabel),
             const SizedBox(height: 16),
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: state.isLoading
-                  ? const Center(
-                      key: ValueKey('loading'),
-                      child: Padding(padding: EdgeInsets.all(24), child: CircularProgressIndicator()),
-                    )
-                  : state.result != null
-                  ? _ResultCard(key: ValueKey(state.result!.label), result: state.result!, toBrand: state.toBrand!, recommendedSize: state.recommendedSize)
-                  : const SizedBox.shrink(key: ValueKey('empty')),
-            ),
+            if (state.result != null) _ResultCard(result: state.result!, toBrand: state.toBrand!, recommendedSize: state.recommendedSize),
             const SizedBox(height: 8),
             const _RecentSection(),
           ],
@@ -235,7 +225,7 @@ class _SizeGrid extends ConsumerWidget {
 }
 
 class _ResultCard extends StatelessWidget {
-  const _ResultCard({required this.result, required this.toBrand, super.key, this.recommendedSize});
+  const _ResultCard({required this.result, required this.toBrand, this.recommendedSize});
 
   final SizeEntry result;
   final Brand toBrand;

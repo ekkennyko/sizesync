@@ -56,7 +56,15 @@ class ConverterNotifier extends StateNotifier<ConverterState> {
     final categorySlug = state.categorySlug;
     if (fromBrand == null || toBrand == null) return;
 
-    state = ConverterState(fromBrand: fromBrand, toBrand: toBrand, categorySlug: categorySlug, selectedSizeLabel: sizeLabel, isLoading: true);
+    state = ConverterState(
+      fromBrand: fromBrand,
+      toBrand: toBrand,
+      categorySlug: categorySlug,
+      selectedSizeLabel: sizeLabel,
+      isLoading: true,
+      result: state.result,
+      recommendedSize: state.recommendedSize,
+    );
 
     final result = await _sizeChartRepo.convertSize(fromBrandSlug: fromBrand.slug, toBrandSlug: toBrand.slug, categorySlug: categorySlug, sizeLabel: sizeLabel);
 
