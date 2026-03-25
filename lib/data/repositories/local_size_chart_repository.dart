@@ -1,5 +1,7 @@
 import 'package:sizesync/data/datasources/asset_data_source.dart';
+import 'package:sizesync/data/models/conversion_result.dart';
 import 'package:sizesync/data/models/size_chart.dart';
+import 'package:sizesync/data/models/size_entry.dart';
 import 'package:sizesync/data/models/user_profile.dart';
 import 'package:sizesync/domain/repositories/size_chart_repository.dart';
 
@@ -9,48 +11,52 @@ class LocalSizeChartRepository implements SizeChartRepository {
   final AssetDataSource _dataSource;
 
   @override
-  Future<List<SizeChart>> getSizeCharts(String brandSlug, String categorySlug) async {
-    final charts = await _dataSource.loadSizeChart(brandSlug);
-    return charts.where((c) => c.categorySlug == categorySlug).toList();
+  Future<SizeChart?> getChartForCategory({required String brandSlug, required String gender, required String categorySlug}) async {
+    final charts = await _dataSource.loadSizeChartsForGender(brandSlug: brandSlug, gender: gender);
+    return charts.where((c) => c.applicableCategories.contains(categorySlug)).firstOrNull;
   }
 
   @override
-  Future<SizeEntry?> convertSize({required String fromBrandSlug, required String toBrandSlug, required String categorySlug, required String sizeLabel}) async {
-    final fromCharts = await _dataSource.loadSizeChart(fromBrandSlug);
-    final toCharts = await _dataSource.loadSizeChart(toBrandSlug);
-
-    final fromChart = fromCharts.where((c) => c.categorySlug == categorySlug).firstOrNull;
-    final toChart = toCharts.where((c) => c.categorySlug == categorySlug).firstOrNull;
+  Future<ConversionResult?> convertSize({
+    required String fromBrandSlug,
+    required String toBrandSlug,
+    required String gender,
+    required String chartId,
+    required String sizeLabel,
+  }) async {
+    final fromChart = await _dataSource.loadSizeChart(brandSlug: fromBrandSlug, gender: gender, chartId: chartId);
+    final toChart = await _dataSource.loadSizeChart(brandSlug: toBrandSlug, gender: gender, chartId: chartId);
     if (fromChart == null || toChart == null) return null;
 
     final fromEntry = fromChart.sizes.where((s) => s.label == sizeLabel).firstOrNull;
     if (fromEntry == null) return null;
 
     SizeEntry? match;
+    String matchMethod = 'eu';
 
-    if (fromEntry.eu != null) {
-      final fromEu = _primaryEuNumber(fromEntry.eu!);
-      match = toChart.sizes.where((s) => s.eu != null && _primaryEuNumber(s.eu!) == fromEu).firstOrNull;
+    match = toChart.sizes.where((s) => s.eu.any(fromEntry.eu.contains)).firstOrNull;
+
+    if (match == null) {
+      matchMethod = 'us';
+      match = toChart.sizes.where((s) => s.us.any(fromEntry.us.contains)).firstOrNull;
     }
 
-    if (match == null && fromEntry.us != null) {
-      match = toChart.sizes.where((s) => s.us == fromEntry.us).firstOrNull;
+    if (match == null) {
+      matchMethod = 'uk';
+      match = toChart.sizes.where((s) => s.uk.any(fromEntry.uk.contains)).firstOrNull;
     }
 
-    if (match == null && fromEntry.uk != null) {
-      match = toChart.sizes.where((s) => s.uk == fromEntry.uk).firstOrNull;
-    }
-
-    return match;
+    if (match == null) return null;
+    return ConversionResult(toSize: match, matchMethod: matchMethod, confidence: 1.0);
   }
 
   @override
-  Future<SizeEntry?> recommendSize({required String brandSlug, required String categorySlug, required UserProfile profile}) async {
-    final charts = await _dataSource.loadSizeChart(brandSlug);
-    final chart = charts.where((c) => c.categorySlug == categorySlug).firstOrNull;
+  Future<SizeEntry?> recommendSize({required String brandSlug, required String gender, required String chartId, required UserProfile profile}) async {
+    final chart = await _dataSource.loadSizeChart(brandSlug: brandSlug, gender: gender, chartId: chartId);
     if (chart == null) return null;
 
-    final matchIndex = chart.sizes.indexWhere((e) => _entryMatchesProfile(e, profile));
+    final sorted = [...chart.sizes]..sort((a, b) => a.order.compareTo(b.order));
+    final matchIndex = sorted.indexWhere((e) => _entryMatchesProfile(e, profile, gender));
     if (matchIndex == -1) return null;
 
     final adjustment = switch (profile.preferredFit) {
@@ -59,30 +65,37 @@ class LocalSizeChartRepository implements SizeChartRepository {
       _ => 0,
     };
 
-    final targetIndex = (matchIndex + adjustment).clamp(0, chart.sizes.length - 1);
-    return chart.sizes[targetIndex];
+    final targetIndex = (matchIndex + adjustment).clamp(0, sorted.length - 1);
+    return sorted[targetIndex];
   }
 
-  String _primaryEuNumber(String eu) => eu.split('/').first.trim();
-
-  bool _entryMatchesProfile(SizeEntry entry, UserProfile profile) {
+  bool _entryMatchesProfile(SizeEntry entry, UserProfile profile, String gender) {
     var checksPerformed = 0;
 
-    if (profile.bustCm != null && entry.bustMinCm != null && entry.bustMaxCm != null) {
+    final primaryCm = gender == 'men' ? profile.chestCm : profile.bustCm;
+    final primaryKey = gender == 'men' ? 'chest' : 'bust';
+    if (primaryCm != null && entry.values[primaryKey] != null) {
+      final range = entry.values[primaryKey]!;
       checksPerformed++;
-      if (profile.bustCm! < entry.bustMinCm! || profile.bustCm! > entry.bustMaxCm!) return false;
+      if (primaryCm < range.min || primaryCm > range.max) return false;
     }
-    if (profile.waistCm != null && entry.waistMinCm != null && entry.waistMaxCm != null) {
+
+    if (profile.waistCm != null && entry.values['waist'] != null) {
+      final range = entry.values['waist']!;
       checksPerformed++;
-      if (profile.waistCm! < entry.waistMinCm! || profile.waistCm! > entry.waistMaxCm!) return false;
+      if (profile.waistCm! < range.min || profile.waistCm! > range.max) return false;
     }
-    if (profile.hipsCm != null && entry.hipsMinCm != null && entry.hipsMaxCm != null) {
+
+    if (profile.hipsCm != null && entry.values['hips'] != null) {
+      final range = entry.values['hips']!;
       checksPerformed++;
-      if (profile.hipsCm! < entry.hipsMinCm! || profile.hipsCm! > entry.hipsMaxCm!) return false;
+      if (profile.hipsCm! < range.min || profile.hipsCm! > range.max) return false;
     }
-    if (profile.footLengthCm != null && entry.footLengthCm != null) {
+
+    if (profile.footLengthCm != null && entry.values['foot'] != null) {
+      final range = entry.values['foot']!;
       checksPerformed++;
-      if (profile.footLengthCm! != entry.footLengthCm!) return false;
+      if (profile.footLengthCm! < range.min || profile.footLengthCm! > range.max) return false;
     }
 
     return checksPerformed > 0;

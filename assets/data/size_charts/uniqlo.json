@@ -1,75 +1,46 @@
-[
-	{
-		"brandSlug": "uniqlo",
-		"categorySlug": "tops",
-		"garmentType": "tops",
-		"sizes": [
+{
+	"brand_slug": "uniqlo",
+	"brand_name": "Uniqlo",
+	"last_updated": "2026-03-25",
+	"source": "official Uniqlo size guides",
+	"women": {
+		"size_charts": [
 			{
-				"label": "XS",
-				"eu": "32/34",
-				"us": "0/2",
-				"uk": "4/6",
-				"asia": "155/80A",
-				"bustMinCm": 80,
-				"bustMaxCm": 84,
-				"waistMinCm": 62,
-				"waistMaxCm": 66
-			},
+				"chart_id": "tops",
+				"name": "Women's Tops",
+				"garment_type": "tops",
+				"applicable_categories": ["tops", "blouses", "tshirts", "shirts"],
+				"measurements": ["bust", "waist"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "XS", "order": 1, "eu": ["32", "34"], "us": ["0", "2"],   "uk": ["4", "6"],   "values": {"bust": {"min": 80, "max": 84}, "waist": {"min": 62, "max": 66}}},
+					{"label": "S",  "order": 2, "eu": ["36"],        "us": ["4"],        "uk": ["8"],        "values": {"bust": {"min": 84, "max": 88}, "waist": {"min": 66, "max": 70}}},
+					{"label": "M",  "order": 3, "eu": ["38", "40"],  "us": ["6", "8"],   "uk": ["10", "12"], "values": {"bust": {"min": 88, "max": 94}, "waist": {"min": 70, "max": 74}}},
+					{"label": "L",  "order": 4, "eu": ["42"],        "us": ["10", "12"], "uk": ["14"],       "values": {"bust": {"min": 96, "max": 100}, "waist": {"min": 78, "max": 82}}},
+					{"label": "XL", "order": 5, "eu": ["44"],        "us": ["14"],       "uk": ["16"],       "values": {"bust": {"min": 104, "max": 108}, "waist": {"min": 86, "max": 90}}},
+					{"label": "XXL","order": 6, "eu": ["46"],        "us": ["16"],       "uk": ["18"],       "values": {"bust": {"min": 112, "max": 116}, "waist": {"min": 94, "max": 98}}}
+				]
+			}
+		]
+	},
+	"men": {
+		"size_charts": [
 			{
-				"label": "S",
-				"eu": "36",
-				"us": "4",
-				"uk": "8",
-				"asia": "160/84A",
-				"bustMinCm": 84,
-				"bustMaxCm": 88,
-				"waistMinCm": 66,
-				"waistMaxCm": 70
-			},
-			{
-				"label": "M",
-				"eu": "38/40",
-				"us": "6/8",
-				"uk": "10/12",
-				"asia": "165/88A",
-				"bustMinCm": 88,
-				"bustMaxCm": 94,
-				"waistMinCm": 70,
-				"waistMaxCm": 74
-			},
-			{
-				"label": "L",
-				"eu": "42",
-				"us": "10/12",
-				"uk": "14",
-				"asia": "170/96A",
-				"bustMinCm": 96,
-				"bustMaxCm": 100,
-				"waistMinCm": 78,
-				"waistMaxCm": 82
-			},
-			{
-				"label": "XL",
-				"eu": "44",
-				"us": "14",
-				"uk": "16",
-				"asia": "175/104A",
-				"bustMinCm": 104,
-				"bustMaxCm": 108,
-				"waistMinCm": 86,
-				"waistMaxCm": 90
-			},
-			{
-				"label": "XXL",
-				"eu": "46",
-				"us": "16",
-				"uk": "18",
-				"asia": "175/112A",
-				"bustMinCm": 112,
-				"bustMaxCm": 116,
-				"waistMinCm": 94,
-				"waistMaxCm": 98
+				"chart_id": "tops",
+				"name": "Men's Tops",
+				"garment_type": "tops",
+				"applicable_categories": ["tops", "tshirts", "shirts"],
+				"measurements": ["chest", "waist"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "XS", "order": 1, "eu": ["44", "46"], "us": ["XS"],  "uk": ["XS"],  "values": {"chest": {"min": 82, "max": 86},   "waist": {"min": 68, "max": 72}}},
+					{"label": "S",  "order": 2, "eu": ["46", "48"], "us": ["S"],   "uk": ["S"],   "values": {"chest": {"min": 86, "max": 90},   "waist": {"min": 72, "max": 76}}},
+					{"label": "M",  "order": 3, "eu": ["48", "50"], "us": ["M"],   "uk": ["M"],   "values": {"chest": {"min": 90, "max": 96},   "waist": {"min": 76, "max": 82}}},
+					{"label": "L",  "order": 4, "eu": ["52"],       "us": ["L"],   "uk": ["L"],   "values": {"chest": {"min": 96, "max": 102},  "waist": {"min": 82, "max": 88}}},
+					{"label": "XL", "order": 5, "eu": ["54"],       "us": ["XL"],  "uk": ["XL"],  "values": {"chest": {"min": 102, "max": 108}, "waist": {"min": 88, "max": 94}}},
+					{"label": "XXL","order": 6, "eu": ["56"],       "us": ["XXL"], "uk": ["XXL"], "values": {"chest": {"min": 108, "max": 114}, "waist": {"min": 94, "max": 100}}}
+				]
 			}
 		]
 	}
-]
+}

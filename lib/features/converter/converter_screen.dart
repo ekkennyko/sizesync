@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizesync/data/models/brand.dart';
 import 'package:sizesync/data/models/conversion_record.dart';
-import 'package:sizesync/data/models/size_chart.dart';
+import 'package:sizesync/data/models/size_entry.dart';
 import 'package:sizesync/features/converter/brand_picker_sheet.dart';
 import 'package:sizesync/features/converter/converter_state.dart';
 import 'package:sizesync/shared/providers/providers.dart';
@@ -26,10 +26,20 @@ class ConverterScreen extends ConsumerWidget {
           children: [
             const _FavoritesSection(),
             _BrandRow(fromBrand: state.fromBrand, toBrand: state.toBrand),
+            const SizedBox(height: 12),
+            SegmentedButton<String>(
+              segments: const [
+                ButtonSegment(value: 'women', label: Text('Women')),
+                ButtonSegment(value: 'men', label: Text('Men')),
+              ],
+              selected: {state.gender},
+              onSelectionChanged: (s) => ref.read(converterProvider.notifier).setGender(s.first),
+            ),
+            const SizedBox(height: 12),
+            _CategoryChips(selected: state.categorySlug),
             const SizedBox(height: 16),
-            _CategoryChips(selected: state.categorySlug, fromBrand: state.fromBrand),
-            const SizedBox(height: 16),
-            if (state.fromBrand != null) _SizeGrid(brandSlug: state.fromBrand!.slug, categorySlug: state.categorySlug, selectedLabel: state.selectedSizeLabel),
+            if (state.fromBrand != null)
+              _SizeGrid(brandSlug: state.fromBrand!.slug, gender: state.gender, categorySlug: state.categorySlug, selectedLabel: state.selectedSizeLabel),
             const SizedBox(height: 16),
             if (state.result != null) _ResultCard(result: state.result!, toBrand: state.toBrand!, recommendedSize: state.recommendedSize),
             const SizedBox(height: 8),
@@ -147,10 +157,9 @@ class _SwapButtonState extends State<_SwapButton> {
 }
 
 class _CategoryChips extends ConsumerWidget {
-  const _CategoryChips({required this.selected, required this.fromBrand});
+  const _CategoryChips({required this.selected});
 
   final String selected;
-  final Brand? fromBrand;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -164,13 +173,12 @@ class _CategoryChips extends ConsumerWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: categories.map((cat) {
-              final enabled = fromBrand == null || fromBrand!.categories.contains(cat.slug);
               return Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: ChoiceChip(
                   label: Text(cat.name),
                   selected: selected == cat.slug,
-                  onSelected: enabled ? (_) => ref.read(converterProvider.notifier).setCategory(cat.slug) : null,
+                  onSelected: (_) => ref.read(converterProvider.notifier).setCategory(cat.slug),
                 ),
               );
             }).toList(),
@@ -182,15 +190,16 @@ class _CategoryChips extends ConsumerWidget {
 }
 
 class _SizeGrid extends ConsumerWidget {
-  const _SizeGrid({required this.brandSlug, required this.categorySlug, required this.selectedLabel});
+  const _SizeGrid({required this.brandSlug, required this.gender, required this.categorySlug, required this.selectedLabel});
 
   final String brandSlug;
+  final String gender;
   final String categorySlug;
   final String? selectedLabel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sizesAsync = ref.watch(fromSizeEntriesProvider((brandSlug: brandSlug, categorySlug: categorySlug)));
+    final sizesAsync = ref.watch(fromSizeEntriesProvider((brandSlug: brandSlug, gender: gender, categorySlug: categorySlug)));
     final theme = Theme.of(context);
 
     return sizesAsync.when(
@@ -236,10 +245,9 @@ class _ResultCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     final mappings = [
-      if (result.eu != null) ('EU', result.eu!),
-      if (result.us != null) ('US', result.us!),
-      if (result.uk != null) ('UK', result.uk!),
-      if (result.asia != null) ('Asia', result.asia!),
+      if (result.eu.isNotEmpty) ('EU', result.eu.join('/')),
+      if (result.us.isNotEmpty) ('US', result.us.join('/')),
+      if (result.uk.isNotEmpty) ('UK', result.uk.join('/')),
     ];
 
     return Column(
@@ -463,6 +471,6 @@ class _HistoryChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final from = brandNames[record.fromBrandSlug] ?? record.fromBrandSlug;
     final to = brandNames[record.toBrandSlug] ?? record.toBrandSlug;
-    return ActionChip(label: Text('$from ${record.fromSize} → $to ${record.toSize}'), onPressed: onTap);
+    return ActionChip(label: Text('$from ${record.fromSizeLabel} → $to ${record.toSizeLabel}'), onPressed: onTap);
   }
 }

@@ -8,9 +8,10 @@ class ConversionRecord with _$ConversionRecord {
   const factory ConversionRecord({
     required String fromBrandSlug,
     required String toBrandSlug,
-    required String categorySlug,
-    required String fromSize,
-    required String toSize,
+    required String gender,
+    required String chartId,
+    required String fromSizeLabel,
+    required String toSizeLabel,
     required DateTime timestamp,
   }) = _ConversionRecord;
 

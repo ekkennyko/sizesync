@@ -15,6 +15,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _bustCtrl = TextEditingController();
+  final _chestCtrl = TextEditingController();
   final _waistCtrl = TextEditingController();
   final _hipsCtrl = TextEditingController();
   final _shouldersCtrl = TextEditingController();
@@ -23,17 +24,20 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   final _weightCtrl = TextEditingController();
 
   final _bustFocus = FocusNode();
+  final _chestFocus = FocusNode();
   final _waistFocus = FocusNode();
   final _hipsFocus = FocusNode();
   final _shouldersFocus = FocusNode();
 
   String? _activeField;
   String _selectedFit = 'regular';
+  String _selectedGender = 'women';
 
   @override
   void initState() {
     super.initState();
     _addFocusListener(_bustFocus, 'bust');
+    _addFocusListener(_chestFocus, 'bust');
     _addFocusListener(_waistFocus, 'waist');
     _addFocusListener(_hipsFocus, 'hips');
     _addFocusListener(_shouldersFocus, 'shoulders');
@@ -56,18 +60,23 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   void _prefill(UserProfile profile) {
     if (profile.bustCm != null) _bustCtrl.text = profile.bustCm!.toStringAsFixed(1);
+    if (profile.chestCm != null) _chestCtrl.text = profile.chestCm!.toStringAsFixed(1);
     if (profile.waistCm != null) _waistCtrl.text = profile.waistCm!.toStringAsFixed(1);
     if (profile.hipsCm != null) _hipsCtrl.text = profile.hipsCm!.toStringAsFixed(1);
     if (profile.shoulderWidthCm != null) _shouldersCtrl.text = profile.shoulderWidthCm!.toStringAsFixed(1);
     if (profile.footLengthCm != null) _footCtrl.text = profile.footLengthCm!.toStringAsFixed(1);
     if (profile.heightCm != null) _heightCtrl.text = profile.heightCm!.toStringAsFixed(0);
     if (profile.weightKg != null) _weightCtrl.text = profile.weightKg!.toStringAsFixed(0);
-    setState(() => _selectedFit = profile.preferredFit);
+    setState(() {
+      _selectedFit = profile.preferredFit;
+      _selectedGender = profile.gender;
+    });
   }
 
   @override
   void dispose() {
     _bustCtrl.dispose();
+    _chestCtrl.dispose();
     _waistCtrl.dispose();
     _hipsCtrl.dispose();
     _shouldersCtrl.dispose();
@@ -75,6 +84,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     _heightCtrl.dispose();
     _weightCtrl.dispose();
     _bustFocus.dispose();
+    _chestFocus.dispose();
     _waistFocus.dispose();
     _hipsFocus.dispose();
     _shouldersFocus.dispose();
@@ -85,9 +95,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     if (!_formKey.currentState!.validate()) return;
 
     final profile = UserProfile(
-      bustCm: double.tryParse(_bustCtrl.text),
+      gender: _selectedGender,
+      bustCm: _selectedGender == 'women' ? double.tryParse(_bustCtrl.text) : null,
+      chestCm: _selectedGender == 'men' ? double.tryParse(_chestCtrl.text) : null,
       waistCm: double.tryParse(_waistCtrl.text),
-      hipsCm: double.tryParse(_hipsCtrl.text),
+      hipsCm: _selectedGender == 'women' ? double.tryParse(_hipsCtrl.text) : null,
       shoulderWidthCm: double.tryParse(_shouldersCtrl.text),
       footLengthCm: double.tryParse(_footCtrl.text),
       heightCm: double.tryParse(_heightCtrl.text),
@@ -115,13 +127,22 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              SegmentedButton<String>(
+                segments: const [
+                  ButtonSegment(value: 'women', label: Text('Women')),
+                  ButtonSegment(value: 'men', label: Text('Men')),
+                ],
+                selected: {_selectedGender},
+                onSelectionChanged: (s) => setState(() => _selectedGender = s.first),
+              ),
+              const SizedBox(height: 16),
               SizedBox(
                 height: 220,
                 child: CustomPaint(
                   painter: _SilhouettePainter(
-                    bust: double.tryParse(_bustCtrl.text),
+                    bust: _selectedGender == 'women' ? double.tryParse(_bustCtrl.text) : double.tryParse(_chestCtrl.text),
                     waist: double.tryParse(_waistCtrl.text),
-                    hips: double.tryParse(_hipsCtrl.text),
+                    hips: _selectedGender == 'women' ? double.tryParse(_hipsCtrl.text) : null,
                     shoulders: double.tryParse(_shouldersCtrl.text),
                     activeField: _activeField,
                     primaryColor: theme.colorScheme.primary,
@@ -133,15 +154,26 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               const SizedBox(height: 24),
               _sectionLabel(context, 'Measurements'),
               const SizedBox(height: 8),
-              _MeasurementField(
-                label: 'Bust',
-                icon: Icons.straighten,
-                controller: _bustCtrl,
-                focusNode: _bustFocus,
-                onChanged: (_) => setState(() {}),
-                validator: _rangeValidator('Bust', 60, 150),
-                onHelpTap: () => _showHowToMeasure(context, 'bust'),
-              ),
+              if (_selectedGender == 'women')
+                _MeasurementField(
+                  label: 'Bust',
+                  icon: Icons.straighten,
+                  controller: _bustCtrl,
+                  focusNode: _bustFocus,
+                  onChanged: (_) => setState(() {}),
+                  validator: _rangeValidator('Bust', 60, 150),
+                  onHelpTap: () => _showHowToMeasure(context, 'bust'),
+                ),
+              if (_selectedGender == 'men')
+                _MeasurementField(
+                  label: 'Chest',
+                  icon: Icons.straighten,
+                  controller: _chestCtrl,
+                  focusNode: _chestFocus,
+                  onChanged: (_) => setState(() {}),
+                  validator: _rangeValidator('Chest', 70, 160),
+                  onHelpTap: () => _showHowToMeasure(context, 'chest'),
+                ),
               _MeasurementField(
                 label: 'Waist',
                 icon: Icons.straighten,
@@ -151,15 +183,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 validator: _rangeValidator('Waist', 50, 130),
                 onHelpTap: () => _showHowToMeasure(context, 'waist'),
               ),
-              _MeasurementField(
-                label: 'Hips',
-                icon: Icons.straighten,
-                controller: _hipsCtrl,
-                focusNode: _hipsFocus,
-                onChanged: (_) => setState(() {}),
-                validator: _rangeValidator('Hips', 60, 160),
-                onHelpTap: () => _showHowToMeasure(context, 'hips'),
-              ),
+              if (_selectedGender == 'women')
+                _MeasurementField(
+                  label: 'Hips',
+                  icon: Icons.straighten,
+                  controller: _hipsCtrl,
+                  focusNode: _hipsFocus,
+                  onChanged: (_) => setState(() {}),
+                  validator: _rangeValidator('Hips', 60, 160),
+                  onHelpTap: () => _showHowToMeasure(context, 'hips'),
+                ),
               _MeasurementField(
                 label: 'Shoulder width',
                 icon: Icons.straighten,
@@ -244,6 +277,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   void _showHowToMeasure(BuildContext context, String field) {
     const instructions = {
       'bust': 'Measure around the fullest part of the chest, keeping the tape parallel to the floor.',
+      'chest': 'Measure around the fullest part of the chest, keeping the tape parallel to the floor.',
       'waist': 'Measure around the narrowest part of the waist, usually above the navel.',
       'hips': 'Measure around the fullest part of the hips and buttocks.',
       'shoulders': 'Measure from the tip of one shoulder to the tip of the other across the back.',

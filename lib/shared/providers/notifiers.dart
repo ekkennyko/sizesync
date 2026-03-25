@@ -10,7 +10,7 @@ class UserProfileNotifier extends StateNotifier<UserProfile?> {
 
   final UserRepository _repository;
 
-  bool get hasProfile => state != null && (state!.bustCm != null || state!.waistCm != null);
+  bool get hasProfile => state != null && (state!.bustCm != null || state!.chestCm != null || state!.waistCm != null);
 
   Future<void> _load() async {
     state = await _repository.getProfile();

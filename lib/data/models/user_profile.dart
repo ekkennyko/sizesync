@@ -6,7 +6,9 @@ part 'user_profile.g.dart';
 @freezed
 class UserProfile with _$UserProfile {
   const factory UserProfile({
+    @Default('women') String gender,
     double? bustCm,
+    double? chestCm,
     double? waistCm,
     double? hipsCm,
     double? footLengthCm,
