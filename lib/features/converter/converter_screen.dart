@@ -203,7 +203,7 @@ class _SizeGrid extends ConsumerWidget {
     final theme = Theme.of(context);
 
     return sizesAsync.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const SizedBox.shrink(),
       error: (e, _) => Text('Error: $e'),
       data: (sizes) {
         if (sizes.isEmpty) return const SizedBox.shrink();
