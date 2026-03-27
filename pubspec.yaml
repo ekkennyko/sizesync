@@ -33,7 +33,9 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   json_annotation: ^4.9.0
+  path_provider: ^2.1.5
   purchases_flutter: ^8.4.0
+  share_plus: ^10.1.4
   smooth_page_indicator: ^1.2.0+3
 
 dev_dependencies:

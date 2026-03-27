@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sizesync/data/models/brand.dart';
 import 'package:sizesync/data/models/conversion_record.dart';
 import 'package:sizesync/data/models/size_entry.dart';
@@ -31,6 +32,15 @@ class ConverterScreen extends ConsumerWidget {
           children: [
             const _FavoritesSection(),
             _BrandRow(fromBrand: state.fromBrand, toBrand: state.toBrand),
+            if (state.fromBrand != null && state.toBrand != null) ...[
+              const SizedBox(height: 8),
+              OutlinedButton.icon(
+                icon: const Icon(Icons.compare_arrows, size: 18),
+                label: const Text('Compare tables'),
+                style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(36)),
+                onPressed: () => context.push('/comparison?a=${state.fromBrand!.slug}&b=${state.toBrand!.slug}'),
+              ),
+            ],
             const SizedBox(height: 12),
             SegmentedButton<String>(
               segments: const [

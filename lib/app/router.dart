@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:sizesync/features/converter/comparison_screen.dart';
 import 'package:sizesync/features/converter/converter_screen.dart';
 import 'package:sizesync/features/onboarding/onboarding_screen.dart';
 import 'package:sizesync/features/profile/profile_screen.dart';
@@ -13,5 +14,9 @@ GoRouter createRouter({required bool showOnboarding}) => GoRouter(
     GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen()),
     GoRoute(path: '/onboarding', builder: (context, state) => const OnboardingScreen()),
     GoRoute(path: '/paywall', builder: (context, state) => const PaywallScreen()),
+    GoRoute(
+      path: '/comparison',
+      builder: (context, state) => ComparisonScreen(slugA: state.uri.queryParameters['a'] ?? '', slugB: state.uri.queryParameters['b'] ?? ''),
+    ),
   ],
 );
