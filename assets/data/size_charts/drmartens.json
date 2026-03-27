@@ -1,0 +1,49 @@
+{
+	"brand_slug": "drmartens",
+	"brand_name": "Dr. Martens",
+	"last_updated": "2026-03-25",
+	"source": "official size guide",
+	"women": {
+		"size_charts": [
+			{
+				"chart_id": "shoes",
+				"name": "Women's Shoes",
+				"garment_type": "shoes",
+				"applicable_categories": ["shoes"],
+				"measurements": ["foot_length"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "36",   "order": 1, "eu": ["36"],   "us": ["5","5.5"],   "uk": ["3","3.5"], "values": {"foot_length": {"min": 22.5, "max": 23.0}}},
+					{"label": "37",   "order": 2, "eu": ["37"],   "us": ["6","6.5"],   "uk": ["4"],       "values": {"foot_length": {"min": 23.0, "max": 23.5}}},
+					{"label": "38",   "order": 3, "eu": ["38"],   "us": ["7","7.5"],   "uk": ["5"],       "values": {"foot_length": {"min": 23.5, "max": 24.0}}},
+					{"label": "39",   "order": 4, "eu": ["39"],   "us": ["8","8.5"],   "uk": ["6"],       "values": {"foot_length": {"min": 24.0, "max": 24.5}}},
+					{"label": "40",   "order": 5, "eu": ["40"],   "us": ["9","9.5"],   "uk": ["6.5","7"], "values": {"foot_length": {"min": 24.5, "max": 25.0}}},
+					{"label": "41",   "order": 6, "eu": ["41"],   "us": ["10"],        "uk": ["7.5"],     "values": {"foot_length": {"min": 25.0, "max": 25.5}}},
+					{"label": "42",   "order": 7, "eu": ["42"],   "us": ["10.5","11"], "uk": ["8"],       "values": {"foot_length": {"min": 25.5, "max": 26.0}}}
+				]
+			}
+		]
+	},
+	"men": {
+		"size_charts": [
+			{
+				"chart_id": "shoes",
+				"name": "Men's Shoes",
+				"garment_type": "shoes",
+				"applicable_categories": ["shoes"],
+				"measurements": ["foot_length"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "39", "order": 1, "eu": ["39"], "us": ["6","6.5"],    "uk": ["5","5.5"],   "values": {"foot_length": {"min": 24.5, "max": 25.0}}},
+					{"label": "40", "order": 2, "eu": ["40"], "us": ["7","7.5"],    "uk": ["6","6.5"],   "values": {"foot_length": {"min": 25.5, "max": 26.0}}},
+					{"label": "41", "order": 3, "eu": ["41"], "us": ["8","8.5"],    "uk": ["7","7.5"],   "values": {"foot_length": {"min": 26.0, "max": 26.5}}},
+					{"label": "42", "order": 4, "eu": ["42"], "us": ["9","9.5"],    "uk": ["8","8.5"],   "values": {"foot_length": {"min": 26.5, "max": 27.0}}},
+					{"label": "43", "order": 5, "eu": ["43"], "us": ["10","10.5"],  "uk": ["9","9.5"],   "values": {"foot_length": {"min": 27.0, "max": 27.5}}},
+					{"label": "44", "order": 6, "eu": ["44"], "us": ["11"],         "uk": ["10"],        "values": {"foot_length": {"min": 27.5, "max": 28.0}}},
+					{"label": "45", "order": 7, "eu": ["45"], "us": ["11.5","12"],  "uk": ["10.5","11"], "values": {"foot_length": {"min": 28.0, "max": 28.5}}},
+					{"label": "46", "order": 8, "eu": ["46"], "us": ["12.5","13"],  "uk": ["11.5","12"], "values": {"foot_length": {"min": 28.5, "max": 29.0}}}
+				]
+			}
+		]
+	}
+}

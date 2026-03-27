@@ -1,0 +1,82 @@
+{
+	"brand_slug": "bottegaveneta",
+	"brand_name": "Bottega Veneta",
+	"last_updated": "2026-03-25",
+	"source": "official size guide",
+	"women": {
+		"size_charts": [
+			{
+				"chart_id": "tops",
+				"name": "Women's Tops",
+				"garment_type": "tops",
+				"applicable_categories": ["tops", "blouses", "tshirts", "shirts"],
+				"measurements": ["bust", "waist"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "36", "order": 1, "eu": ["36"], "us": ["0","2"],   "uk": ["4","6"],   "values": {"bust": {"min": 78, "max": 82},  "waist": {"min": 61, "max": 65}}},
+					{"label": "38", "order": 2, "eu": ["38"], "us": ["4"],       "uk": ["8"],       "values": {"bust": {"min": 82, "max": 86},  "waist": {"min": 65, "max": 69}}},
+					{"label": "40", "order": 3, "eu": ["40"], "us": ["6","8"],   "uk": ["10","12"], "values": {"bust": {"min": 86, "max": 94},  "waist": {"min": 69, "max": 77}}},
+					{"label": "42", "order": 4, "eu": ["42"], "us": ["10"],      "uk": ["14"],      "values": {"bust": {"min": 94, "max": 98},  "waist": {"min": 77, "max": 81}}},
+					{"label": "44", "order": 5, "eu": ["44"], "us": ["12","14"], "uk": ["16"],      "values": {"bust": {"min": 98, "max": 104}, "waist": {"min": 81, "max": 87}}},
+					{"label": "46", "order": 6, "eu": ["46"], "us": ["14","16"], "uk": ["18"],      "values": {"bust": {"min": 104,"max": 110}, "waist": {"min": 87, "max": 93}}},
+					{"label": "48", "order": 7, "eu": ["48"], "us": ["16","18"], "uk": ["20"],      "values": {"bust": {"min": 110,"max": 116}, "waist": {"min": 93, "max": 99}}}
+				]
+			},
+			{
+				"chart_id": "bottoms",
+				"name": "Women's Bottoms",
+				"garment_type": "bottoms",
+				"applicable_categories": ["bottoms", "trousers", "skirts"],
+				"measurements": ["waist", "hips"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "36", "order": 1, "eu": ["36"], "us": ["0","2"],   "uk": ["4","6"],   "values": {"waist": {"min": 61, "max": 65},  "hips": {"min": 85, "max": 89}}},
+					{"label": "38", "order": 2, "eu": ["38"], "us": ["4"],       "uk": ["8"],       "values": {"waist": {"min": 65, "max": 69},  "hips": {"min": 89, "max": 93}}},
+					{"label": "40", "order": 3, "eu": ["40"], "us": ["6","8"],   "uk": ["10","12"], "values": {"waist": {"min": 69, "max": 77},  "hips": {"min": 93, "max": 101}}},
+					{"label": "42", "order": 4, "eu": ["42"], "us": ["10"],      "uk": ["14"],      "values": {"waist": {"min": 77, "max": 81},  "hips": {"min": 101,"max": 105}}},
+					{"label": "44", "order": 5, "eu": ["44"], "us": ["12","14"], "uk": ["16"],      "values": {"waist": {"min": 81, "max": 85},  "hips": {"min": 105,"max": 109}}},
+					{"label": "46", "order": 6, "eu": ["46"], "us": ["14","16"], "uk": ["18"],      "values": {"waist": {"min": 85, "max": 89},  "hips": {"min": 109,"max": 113}}},
+					{"label": "48", "order": 7, "eu": ["48"], "us": ["16","18"], "uk": ["20"],      "values": {"waist": {"min": 89, "max": 93},  "hips": {"min": 113,"max": 117}}}
+				]
+			}
+		]
+	},
+	"men": {
+		"size_charts": [
+			{
+				"chart_id": "tops",
+				"name": "Men's Tops",
+				"garment_type": "tops",
+				"applicable_categories": ["tops", "tshirts", "shirts"],
+				"measurements": ["chest", "waist"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "36", "order": 1, "eu": ["36"], "us": ["XS"],  "uk": ["XS"],  "values": {"chest": {"min": 82, "max": 86},  "waist": {"min": 67, "max": 71}}},
+					{"label": "38", "order": 2, "eu": ["38"], "us": ["S"],   "uk": ["S"],   "values": {"chest": {"min": 86, "max": 90},  "waist": {"min": 71, "max": 75}}},
+					{"label": "40", "order": 3, "eu": ["40"], "us": ["M"],   "uk": ["M"],   "values": {"chest": {"min": 90, "max": 96},  "waist": {"min": 75, "max": 80}}},
+					{"label": "42", "order": 4, "eu": ["42"], "us": ["L"],   "uk": ["L"],   "values": {"chest": {"min": 96, "max": 102}, "waist": {"min": 80, "max": 86}}},
+					{"label": "44", "order": 5, "eu": ["44"], "us": ["XL"],  "uk": ["XL"],  "values": {"chest": {"min": 102,"max": 108}, "waist": {"min": 86, "max": 92}}},
+					{"label": "46", "order": 6, "eu": ["46"], "us": ["XXL"], "uk": ["XXL"], "values": {"chest": {"min": 108,"max": 114}, "waist": {"min": 92, "max": 98}}},
+					{"label": "48", "order": 7, "eu": ["48"], "us": ["XXXL"],"uk": ["XXXL"],"values": {"chest": {"min": 114,"max": 120}, "waist": {"min": 98, "max": 104}}}
+				]
+			},
+			{
+				"chart_id": "bottoms",
+				"name": "Men's Bottoms",
+				"garment_type": "bottoms",
+				"applicable_categories": ["bottoms", "trousers"],
+				"measurements": ["waist"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "36", "order": 1, "eu": ["36"], "us": ["28"], "uk": ["28"], "values": {"waist": {"min": 71, "max": 73}}},
+					{"label": "38", "order": 2, "eu": ["38"], "us": ["30"], "uk": ["30"], "values": {"waist": {"min": 76, "max": 78}}},
+					{"label": "40", "order": 3, "eu": ["40"], "us": ["32"], "uk": ["32"], "values": {"waist": {"min": 81, "max": 83}}},
+					{"label": "42", "order": 4, "eu": ["42"], "us": ["34"], "uk": ["34"], "values": {"waist": {"min": 86, "max": 88}}},
+					{"label": "44", "order": 5, "eu": ["44"], "us": ["36"], "uk": ["36"], "values": {"waist": {"min": 91, "max": 93}}},
+					{"label": "46", "order": 6, "eu": ["46"], "us": ["38"], "uk": ["38"], "values": {"waist": {"min": 96, "max": 98}}},
+					{"label": "48", "order": 7, "eu": ["48"], "us": ["40"], "uk": ["40"], "values": {"waist": {"min": 101,"max": 103}}}
+				]
+			}
+		]
+	}
+}

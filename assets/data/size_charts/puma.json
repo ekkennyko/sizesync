@@ -1,0 +1,79 @@
+{
+	"brand_slug": "puma",
+	"brand_name": "Puma",
+	"last_updated": "2026-03-25",
+	"source": "official size guide",
+	"women": {
+		"size_charts": [
+			{
+				"chart_id": "tops",
+				"name": "Women's Tops",
+				"garment_type": "tops",
+				"applicable_categories": ["tops", "tshirts", "shirts"],
+				"measurements": ["bust", "waist"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "XS",  "order": 1, "eu": ["32","34"], "us": ["XS"],  "uk": ["6","8"],   "values": {"bust": {"min": 82, "max": 86},  "waist": {"min": 65, "max": 69}}},
+					{"label": "S",   "order": 2, "eu": ["36"],      "us": ["S"],   "uk": ["10"],      "values": {"bust": {"min": 86, "max": 90},  "waist": {"min": 69, "max": 73}}},
+					{"label": "M",   "order": 3, "eu": ["38","40"], "us": ["M"],   "uk": ["12","14"], "values": {"bust": {"min": 90, "max": 98},  "waist": {"min": 73, "max": 81}}},
+					{"label": "L",   "order": 4, "eu": ["42"],      "us": ["L"],   "uk": ["16"],      "values": {"bust": {"min": 98, "max": 104}, "waist": {"min": 81, "max": 87}}},
+					{"label": "XL",  "order": 5, "eu": ["44"],      "us": ["XL"],  "uk": ["18"],      "values": {"bust": {"min": 104,"max": 110}, "waist": {"min": 87, "max": 93}}},
+					{"label": "XXL", "order": 6, "eu": ["46"],      "us": ["XXL"], "uk": ["20"],      "values": {"bust": {"min": 110,"max": 116}, "waist": {"min": 93, "max": 99}}}
+				]
+			},
+			{
+				"chart_id": "shoes",
+				"name": "Women's Shoes",
+				"garment_type": "shoes",
+				"applicable_categories": ["shoes"],
+				"measurements": ["foot_length"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "36",   "order": 1, "eu": ["36"],   "us": ["5","5.5"],   "uk": ["3","3.5"], "values": {"foot_length": {"min": 22.5, "max": 23.0}}},
+					{"label": "37",   "order": 2, "eu": ["37"],   "us": ["6","6.5"],   "uk": ["4"],       "values": {"foot_length": {"min": 23.0, "max": 23.5}}},
+					{"label": "38",   "order": 3, "eu": ["38"],   "us": ["7","7.5"],   "uk": ["5"],       "values": {"foot_length": {"min": 23.5, "max": 24.0}}},
+					{"label": "39",   "order": 4, "eu": ["39"],   "us": ["8","8.5"],   "uk": ["6"],       "values": {"foot_length": {"min": 24.0, "max": 24.5}}},
+					{"label": "40",   "order": 5, "eu": ["40"],   "us": ["9","9.5"],   "uk": ["6.5","7"], "values": {"foot_length": {"min": 24.5, "max": 25.0}}},
+					{"label": "41",   "order": 6, "eu": ["41"],   "us": ["10"],        "uk": ["7.5"],     "values": {"foot_length": {"min": 25.0, "max": 25.5}}}
+				]
+			}
+		]
+	},
+	"men": {
+		"size_charts": [
+			{
+				"chart_id": "tops",
+				"name": "Men's Tops",
+				"garment_type": "tops",
+				"applicable_categories": ["tops", "tshirts", "shirts"],
+				"measurements": ["chest", "waist"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "XS",  "order": 1, "eu": ["44","46"], "us": ["XS"],  "uk": ["XS"],  "values": {"chest": {"min": 88, "max": 92},  "waist": {"min": 73, "max": 77}}},
+					{"label": "S",   "order": 2, "eu": ["46","48"], "us": ["S"],   "uk": ["S"],   "values": {"chest": {"min": 92, "max": 96},  "waist": {"min": 77, "max": 81}}},
+					{"label": "M",   "order": 3, "eu": ["48","50"], "us": ["M"],   "uk": ["M"],   "values": {"chest": {"min": 96, "max": 102}, "waist": {"min": 81, "max": 86}}},
+					{"label": "L",   "order": 4, "eu": ["52"],      "us": ["L"],   "uk": ["L"],   "values": {"chest": {"min": 102,"max": 108}, "waist": {"min": 86, "max": 92}}},
+					{"label": "XL",  "order": 5, "eu": ["54"],      "us": ["XL"],  "uk": ["XL"],  "values": {"chest": {"min": 108,"max": 114}, "waist": {"min": 92, "max": 98}}},
+					{"label": "XXL", "order": 6, "eu": ["56"],      "us": ["XXL"], "uk": ["XXL"], "values": {"chest": {"min": 114,"max": 120}, "waist": {"min": 98, "max": 104}}}
+				]
+			},
+			{
+				"chart_id": "shoes",
+				"name": "Men's Shoes",
+				"garment_type": "shoes",
+				"applicable_categories": ["shoes"],
+				"measurements": ["foot_length"],
+				"unit": "cm",
+				"sizes": [
+					{"label": "40", "order": 1, "eu": ["40"], "us": ["7","7.5"],    "uk": ["6","6.5"],   "values": {"foot_length": {"min": 25.5, "max": 26.0}}},
+					{"label": "41", "order": 2, "eu": ["41"], "us": ["8","8.5"],    "uk": ["7","7.5"],   "values": {"foot_length": {"min": 26.0, "max": 26.5}}},
+					{"label": "42", "order": 3, "eu": ["42"], "us": ["9","9.5"],    "uk": ["8","8.5"],   "values": {"foot_length": {"min": 26.5, "max": 27.0}}},
+					{"label": "43", "order": 4, "eu": ["43"], "us": ["10","10.5"],  "uk": ["9","9.5"],   "values": {"foot_length": {"min": 27.0, "max": 27.5}}},
+					{"label": "44", "order": 5, "eu": ["44"], "us": ["11"],         "uk": ["10"],        "values": {"foot_length": {"min": 27.5, "max": 28.0}}},
+					{"label": "45", "order": 6, "eu": ["45"], "us": ["11.5","12"],  "uk": ["10.5","11"], "values": {"foot_length": {"min": 28.0, "max": 28.5}}},
+					{"label": "46", "order": 7, "eu": ["46"], "us": ["12.5","13"],  "uk": ["11.5","12"], "values": {"foot_length": {"min": 28.5, "max": 29.0}}}
+				]
+			}
+		]
+	}
+}

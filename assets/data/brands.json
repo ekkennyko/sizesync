@@ -50,7 +50,7 @@
 		"country": "ES",
 		"logoAsset": "assets/logos/mango.svg",
 		"website": "https://www.mango.com",
-		"isPremium": true,
+		"isPremium": false,
 		"genders": ["women"]
 	},
 	{
@@ -59,7 +59,79 @@
 		"country": "US",
 		"logoAsset": "assets/logos/levis.svg",
 		"website": "https://www.levi.com",
-		"isPremium": true,
+		"isPremium": false,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "GAP",
+		"slug": "gap",
+		"country": "US",
+		"logoAsset": "assets/logos/gap.svg",
+		"website": "https://www.gap.com",
+		"isPremium": false,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Pull&Bear",
+		"slug": "pullandbear",
+		"country": "ES",
+		"logoAsset": "assets/logos/pullandbear.svg",
+		"website": "https://www.pullandbear.com",
+		"isPremium": false,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Bershka",
+		"slug": "bershka",
+		"country": "ES",
+		"logoAsset": "assets/logos/bershka.svg",
+		"website": "https://www.bershka.com",
+		"isPremium": false,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Stradivarius",
+		"slug": "stradivarius",
+		"country": "ES",
+		"logoAsset": "assets/logos/stradivarius.svg",
+		"website": "https://www.stradivarius.com",
+		"isPremium": false,
+		"genders": ["women"]
+	},
+	{
+		"name": "ASOS",
+		"slug": "asos",
+		"country": "GB",
+		"logoAsset": "assets/logos/asos.svg",
+		"website": "https://www.asos.com",
+		"isPremium": false,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "New Balance",
+		"slug": "newbalance",
+		"country": "US",
+		"logoAsset": "assets/logos/newbalance.svg",
+		"website": "https://www.newbalance.com",
+		"isPremium": false,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Puma",
+		"slug": "puma",
+		"country": "DE",
+		"logoAsset": "assets/logos/puma.svg",
+		"website": "https://www.puma.com",
+		"isPremium": false,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Reebok",
+		"slug": "reebok",
+		"country": "US",
+		"logoAsset": "assets/logos/reebok.svg",
+		"website": "https://www.reebok.com",
+		"isPremium": false,
 		"genders": ["women", "men"]
 	},
 	{
@@ -72,20 +144,308 @@
 		"genders": ["women", "men"]
 	},
 	{
-		"name": "ASOS",
-		"slug": "asos",
-		"country": "GB",
-		"logoAsset": "assets/logos/asos.svg",
-		"website": "https://www.asos.com",
+		"name": "Tommy Hilfiger",
+		"slug": "tommyhilfiger",
+		"country": "US",
+		"logoAsset": "assets/logos/tommyhilfiger.svg",
+		"website": "https://www.tommyhilfiger.com",
 		"isPremium": true,
 		"genders": ["women", "men"]
 	},
 	{
-		"name": "Pull&Bear",
-		"slug": "pullandbear",
+		"name": "Ralph Lauren",
+		"slug": "ralphlauren",
+		"country": "US",
+		"logoAsset": "assets/logos/ralphlauren.svg",
+		"website": "https://www.ralphlauren.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Massimo Dutti",
+		"slug": "massimodutti",
 		"country": "ES",
-		"logoAsset": "assets/logos/pullandbear.svg",
-		"website": "https://www.pullandbear.com",
+		"logoAsset": "assets/logos/massimodutti.svg",
+		"website": "https://www.massimodutti.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "COS",
+		"slug": "cos",
+		"country": "SE",
+		"logoAsset": "assets/logos/cos.svg",
+		"website": "https://www.cos.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "& Other Stories",
+		"slug": "otherstories",
+		"country": "SE",
+		"logoAsset": "assets/logos/otherstories.svg",
+		"website": "https://www.stories.com",
+		"isPremium": true,
+		"genders": ["women"]
+	},
+	{
+		"name": "Banana Republic",
+		"slug": "bananarepublic",
+		"country": "US",
+		"logoAsset": "assets/logos/bananarepublic.svg",
+		"website": "https://www.bananarepublic.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Old Navy",
+		"slug": "oldnavy",
+		"country": "US",
+		"logoAsset": "assets/logos/oldnavy.svg",
+		"website": "https://www.oldnavy.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Under Armour",
+		"slug": "underarmour",
+		"country": "US",
+		"logoAsset": "assets/logos/underarmour.svg",
+		"website": "https://www.underarmour.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Columbia",
+		"slug": "columbia",
+		"country": "US",
+		"logoAsset": "assets/logos/columbia.svg",
+		"website": "https://www.columbia.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "The North Face",
+		"slug": "thenorthface",
+		"country": "US",
+		"logoAsset": "assets/logos/thenorthface.svg",
+		"website": "https://www.thenorthface.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Gucci",
+		"slug": "gucci",
+		"country": "IT",
+		"logoAsset": "assets/logos/gucci.svg",
+		"website": "https://www.gucci.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Prada",
+		"slug": "prada",
+		"country": "IT",
+		"logoAsset": "assets/logos/prada.svg",
+		"website": "https://www.prada.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Burberry",
+		"slug": "burberry",
+		"country": "GB",
+		"logoAsset": "assets/logos/burberry.svg",
+		"website": "https://www.burberry.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Versace",
+		"slug": "versace",
+		"country": "IT",
+		"logoAsset": "assets/logos/versace.svg",
+		"website": "https://www.versace.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Balenciaga",
+		"slug": "balenciaga",
+		"country": "FR",
+		"logoAsset": "assets/logos/balenciaga.svg",
+		"website": "https://www.balenciaga.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Saint Laurent",
+		"slug": "saintlaurent",
+		"country": "FR",
+		"logoAsset": "assets/logos/saintlaurent.svg",
+		"website": "https://www.ysl.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Bottega Veneta",
+		"slug": "bottegaveneta",
+		"country": "IT",
+		"logoAsset": "assets/logos/bottegaveneta.svg",
+		"website": "https://www.bottegaveneta.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Dior",
+		"slug": "dior",
+		"country": "FR",
+		"logoAsset": "assets/logos/dior.svg",
+		"website": "https://www.dior.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Louis Vuitton",
+		"slug": "louisvuitton",
+		"country": "FR",
+		"logoAsset": "assets/logos/louisvuitton.svg",
+		"website": "https://www.louisvuitton.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Fendi",
+		"slug": "fendi",
+		"country": "IT",
+		"logoAsset": "assets/logos/fendi.svg",
+		"website": "https://www.fendi.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Valentino",
+		"slug": "valentino",
+		"country": "IT",
+		"logoAsset": "assets/logos/valentino.svg",
+		"website": "https://www.valentino.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Givenchy",
+		"slug": "givenchy",
+		"country": "FR",
+		"logoAsset": "assets/logos/givenchy.svg",
+		"website": "https://www.givenchy.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Hugo Boss",
+		"slug": "hugoboss",
+		"country": "DE",
+		"logoAsset": "assets/logos/hugoboss.svg",
+		"website": "https://www.hugoboss.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Lacoste",
+		"slug": "lacoste",
+		"country": "FR",
+		"logoAsset": "assets/logos/lacoste.svg",
+		"website": "https://www.lacoste.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Michael Kors",
+		"slug": "michaelkors",
+		"country": "US",
+		"logoAsset": "assets/logos/michaelkors.svg",
+		"website": "https://www.michaelkors.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Coach",
+		"slug": "coach",
+		"country": "US",
+		"logoAsset": "assets/logos/coach.svg",
+		"website": "https://www.coach.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Ted Baker",
+		"slug": "tedbaker",
+		"country": "GB",
+		"logoAsset": "assets/logos/tedbaker.svg",
+		"website": "https://www.tedbaker.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Diesel",
+		"slug": "diesel",
+		"country": "IT",
+		"logoAsset": "assets/logos/diesel.svg",
+		"website": "https://www.diesel.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Armani Exchange",
+		"slug": "armaniexchange",
+		"country": "IT",
+		"logoAsset": "assets/logos/armaniexchange.svg",
+		"website": "https://www.armaniexchange.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Timberland",
+		"slug": "timberland",
+		"country": "US",
+		"logoAsset": "assets/logos/timberland.svg",
+		"website": "https://www.timberland.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Converse",
+		"slug": "converse",
+		"country": "US",
+		"logoAsset": "assets/logos/converse.svg",
+		"website": "https://www.converse.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Vans",
+		"slug": "vans",
+		"country": "US",
+		"logoAsset": "assets/logos/vans.svg",
+		"website": "https://www.vans.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Dr. Martens",
+		"slug": "drmartens",
+		"country": "GB",
+		"logoAsset": "assets/logos/drmartens.svg",
+		"website": "https://www.drmartens.com",
+		"isPremium": true,
+		"genders": ["women", "men"]
+	},
+	{
+		"name": "Skechers",
+		"slug": "skechers",
+		"country": "US",
+		"logoAsset": "assets/logos/skechers.svg",
+		"website": "https://www.skechers.com",
 		"isPremium": true,
 		"genders": ["women", "men"]
 	}
