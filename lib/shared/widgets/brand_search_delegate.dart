@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizesync/data/models/brand.dart';
-import 'package:sizesync/features/converter/converter_state.dart';
 import 'package:sizesync/shared/providers/providers.dart';
 
 class BrandSearchDelegate extends SearchDelegate<void> {
@@ -30,14 +29,9 @@ class BrandSearchDelegate extends SearchDelegate<void> {
   void _removeRecent(String slug) => _ref.read(recentSearchesProvider.notifier).remove(slug);
 
   void _selectBrand(BuildContext context, Brand brand) {
-    if (brand.isPremium && !_ref.read(purchaseProvider)) {
-      close(context, null);
-      context.push('/paywall');
-      return;
-    }
     _ref.read(recentSearchesProvider.notifier).add(brand.slug);
-    _ref.read(converterProvider.notifier).setFromBrand(brand);
     close(context, null);
+    context.push('/brand/${brand.slug}');
   }
 }
 

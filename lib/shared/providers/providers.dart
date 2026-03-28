@@ -7,6 +7,7 @@ import 'package:sizesync/data/models/brand.dart';
 import 'package:sizesync/data/models/category.dart';
 import 'package:sizesync/data/models/conversion_record.dart';
 import 'package:sizesync/data/models/size_chart.dart';
+import 'package:sizesync/data/models/size_entry.dart';
 import 'package:sizesync/data/models/user_profile.dart';
 import 'package:sizesync/data/repositories/local_brand_repository.dart';
 import 'package:sizesync/data/repositories/local_size_chart_repository.dart';
@@ -74,3 +75,19 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) => T
 final appSettingsProvider = StateNotifierProvider<AppSettingsNotifier, AppSettings>((ref) => AppSettingsNotifier(ref.watch(hiveDataSourceProvider)));
 
 final recentSearchesProvider = StateNotifierProvider<RecentSearchesNotifier, List<String>>((ref) => RecentSearchesNotifier(ref.watch(hiveDataSourceProvider)));
+
+final brandChartsProvider = FutureProvider.autoDispose.family<List<SizeChart>, ({String slug, String gender})>(
+  (ref, p) => ref.watch(assetDataSourceProvider).loadSizeChartsForGender(brandSlug: p.slug, gender: p.gender),
+);
+
+final brandRecommendedSizesProvider = FutureProvider.autoDispose.family<Map<String, SizeEntry?>, ({String slug, String gender})>((ref, p) async {
+  final profile = ref.watch(userProfileProvider);
+  if (profile == null) return {};
+  final charts = await ref.read(assetDataSourceProvider).loadSizeChartsForGender(brandSlug: p.slug, gender: p.gender);
+  final repo = ref.read(sizeChartRepositoryProvider);
+  final results = <String, SizeEntry?>{};
+  for (final chart in charts) {
+    results[chart.name] = await repo.recommendSize(brandSlug: p.slug, gender: p.gender, chartId: chart.chartId, profile: profile);
+  }
+  return results;
+});

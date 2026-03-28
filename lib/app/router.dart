@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:sizesync/features/brands/brand_card_screen.dart';
 import 'package:sizesync/features/converter/comparison_screen.dart';
 import 'package:sizesync/features/converter/converter_screen.dart';
 import 'package:sizesync/features/onboarding/onboarding_screen.dart';
@@ -17,6 +18,10 @@ GoRouter createRouter({required bool showOnboarding}) => GoRouter(
     GoRoute(
       path: '/comparison',
       builder: (context, state) => ComparisonScreen(slugA: state.uri.queryParameters['a'] ?? '', slugB: state.uri.queryParameters['b'] ?? ''),
+    ),
+    GoRoute(
+      path: '/brand/:slug',
+      builder: (context, state) => BrandCardScreen(slug: state.pathParameters['slug']!),
     ),
   ],
 );
