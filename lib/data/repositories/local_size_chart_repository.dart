@@ -46,8 +46,13 @@ class LocalSizeChartRepository implements SizeChartRepository {
       match = toChart.sizes.where((s) => s.uk.any(fromEntry.uk.contains)).firstOrNull;
     }
 
-    if (match == null) return null;
-    return ConversionResult(toSize: match, matchMethod: matchMethod, confidence: 1.0);
+    if (match == null) {
+      matchMethod = 'nearest';
+      final sorted = [...toChart.sizes]..sort((a, b) => a.order.compareTo(b.order));
+      match = sorted.reduce((a, b) => (a.order - fromEntry.order).abs() <= (b.order - fromEntry.order).abs() ? a : b);
+    }
+
+    return ConversionResult(fromSize: fromEntry, toSize: match, matchMethod: matchMethod, confidence: matchMethod == 'nearest' ? 0.5 : 1.0);
   }
 
   @override
