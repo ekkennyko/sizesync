@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizesync/data/models/brand.dart';
+import 'package:sizesync/features/converter/converter_state.dart';
 import 'package:sizesync/shared/providers/providers.dart';
 
 class BrandPickerSheet extends ConsumerStatefulWidget {
@@ -58,6 +59,7 @@ class _BrandPickerSheetState extends ConsumerState<BrandPickerSheet> {
   Widget build(BuildContext context) {
     final brandsAsync = ref.watch(allBrandsUnfilteredProvider);
     final favorites = ref.watch(favoritesProvider);
+    final gender = ref.watch(converterProvider.select((s) => s.gender));
     final theme = Theme.of(context);
 
     return DraggableScrollableSheet(
@@ -96,9 +98,10 @@ class _BrandPickerSheetState extends ConsumerState<BrandPickerSheet> {
                 loading: () => const Center(child: CircularProgressIndicator()),
                 error: (e, _) => Center(child: Text('Error: $e')),
                 data: (brands) {
-                  final filtered = _query.isEmpty ? brands : brands.where((b) => b.name.toLowerCase().contains(_query.toLowerCase())).toList();
+                  final genderBrands = brands.where((b) => b.genders.contains(gender)).toList();
+                  final filtered = _query.isEmpty ? genderBrands : genderBrands.where((b) => b.name.toLowerCase().contains(_query.toLowerCase())).toList();
 
-                  final favBrands = brands.where((b) => favorites.contains(b.slug)).toList();
+                  final favBrands = genderBrands.where((b) => favorites.contains(b.slug)).toList();
 
                   return CustomScrollView(
                     controller: scrollController,

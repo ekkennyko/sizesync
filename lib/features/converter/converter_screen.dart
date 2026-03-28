@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizesync/data/models/brand.dart';
 import 'package:sizesync/data/models/conversion_record.dart';
+import 'package:sizesync/data/models/conversion_result.dart';
 import 'package:sizesync/data/models/size_entry.dart';
 import 'package:sizesync/features/converter/brand_picker_sheet.dart';
 import 'package:sizesync/features/converter/converter_state.dart';
@@ -182,22 +183,32 @@ class _CategoryChips extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final categoriesAsync = ref.watch(categoriesProvider);
+    final state = ref.watch(converterProvider);
+    final fromSlug = state.fromBrand?.slug;
+    if (fromSlug == null) return const SizedBox.shrink();
 
-    return categoriesAsync.when(
+    final chartsAsync = ref.watch(availableChartOptionsProvider((slugA: fromSlug, slugB: state.toBrand?.slug, gender: state.gender)));
+
+    return chartsAsync.when(
       loading: () => const SizedBox.shrink(),
       error: (_, _) => const SizedBox.shrink(),
-      data: (categories) {
+      data: (charts) {
+        if (charts.isEmpty) return const SizedBox.shrink();
+        if (!charts.any((c) => c.id == selected)) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            ref.read(converterProvider.notifier).setCategory(charts.first.id);
+          });
+        }
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: categories.map((cat) {
+            children: charts.map((chart) {
               return Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: ChoiceChip(
-                  label: Text(cat.name),
-                  selected: selected == cat.slug,
-                  onSelected: (_) => ref.read(converterProvider.notifier).setCategory(cat.slug),
+                  label: Text(chart.name),
+                  selected: selected == chart.id,
+                  onSelected: (_) => ref.read(converterProvider.notifier).setCategory(chart.id),
                 ),
               );
             }).toList(),
@@ -255,18 +266,19 @@ class _SizeGrid extends ConsumerWidget {
 class _ResultCard extends StatelessWidget {
   const _ResultCard({required this.result, required this.toBrand, this.recommendedSize});
 
-  final SizeEntry result;
+  final ConversionResult result;
   final Brand toBrand;
   final SizeEntry? recommendedSize;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isExact = result.matchMethod != 'nearest';
 
     final mappings = [
-      if (result.eu.isNotEmpty) ('EU', result.eu.join('/')),
-      if (result.us.isNotEmpty) ('US', result.us.join('/')),
-      if (result.uk.isNotEmpty) ('UK', result.uk.join('/')),
+      if (result.toSize.eu.isNotEmpty) ('EU', result.toSize.eu.join('/')),
+      if (result.toSize.us.isNotEmpty) ('US', result.toSize.us.join('/')),
+      if (result.toSize.uk.isNotEmpty) ('UK', result.toSize.uk.join('/')),
     ];
 
     return Column(
@@ -285,8 +297,23 @@ class _ResultCard extends StatelessWidget {
                 Text('Your size in ${toBrand.name}', style: theme.textTheme.bodyMedium),
                 const SizedBox(height: 4),
                 Text(
-                  result.label,
+                  result.toSize.label,
                   style: theme.textTheme.displaySmall?.copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(
+                      isExact ? Icons.check_circle_outline : Icons.info_outline,
+                      size: 14,
+                      color: isExact ? theme.colorScheme.primary : Colors.orange.shade700,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      isExact ? 'Точное совпадение' : 'Приблизительно',
+                      style: theme.textTheme.labelSmall?.copyWith(color: isExact ? theme.colorScheme.primary : Colors.orange.shade700),
+                    ),
+                  ],
                 ),
                 if (mappings.isNotEmpty) ...[
                   const SizedBox(height: 12),

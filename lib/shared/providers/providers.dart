@@ -34,6 +34,18 @@ final allBrandsProvider = FutureProvider<List<Brand>>((ref) => ref.watch(brandRe
 final allBrandsUnfilteredProvider = FutureProvider<List<Brand>>((ref) => ref.watch(assetDataSourceProvider).loadBrands());
 final categoriesProvider = FutureProvider<List<Category>>((ref) => ref.watch(assetDataSourceProvider).loadCategories());
 
+final availableChartOptionsProvider = FutureProvider.autoDispose.family<List<({String id, String name})>, ({String slugA, String? slugB, String gender})>((
+  ref,
+  p,
+) async {
+  final ds = ref.watch(assetDataSourceProvider);
+  final chartsA = await ds.loadSizeChartsForGender(brandSlug: p.slugA, gender: p.gender);
+  if (p.slugB == null) return chartsA.map((c) => (id: c.chartId, name: c.name)).toList();
+  final chartsB = await ds.loadSizeChartsForGender(brandSlug: p.slugB!, gender: p.gender);
+  final idsB = chartsB.map((c) => c.chartId).toSet();
+  return chartsA.where((c) => idsB.contains(c.chartId)).map((c) => (id: c.chartId, name: c.name)).toList();
+});
+
 final comparisonChartOptionsProvider = FutureProvider.autoDispose.family<List<({String id, String name})>, ({String slugA, String slugB, String gender})>((
   ref,
   p,

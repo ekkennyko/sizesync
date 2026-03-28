@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizesync/data/models/brand.dart';
 import 'package:sizesync/data/models/conversion_record.dart';
+import 'package:sizesync/data/models/conversion_result.dart';
 import 'package:sizesync/data/models/size_entry.dart';
 import 'package:sizesync/domain/repositories/brand_repository.dart';
 import 'package:sizesync/domain/repositories/size_chart_repository.dart';
@@ -24,7 +25,7 @@ class ConverterState {
   final String gender;
   final String categorySlug;
   final String? selectedSizeLabel;
-  final SizeEntry? result;
+  final ConversionResult? result;
   final SizeEntry? recommendedSize;
   final bool isLoading;
 }
@@ -108,7 +109,7 @@ class ConverterNotifier extends StateNotifier<ConverterState> {
       gender: gender,
       categorySlug: categorySlug,
       selectedSizeLabel: sizeLabel,
-      result: conversionResult?.toSize,
+      result: conversionResult,
       recommendedSize: recommended,
     );
   }
