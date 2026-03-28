@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizesync/data/datasources/hive_data_source.dart';
 import 'package:sizesync/data/datasources/purchase_service.dart';
@@ -101,5 +102,58 @@ class PurchaseNotifier extends StateNotifier<bool> {
   void dispose() {
     _sub?.cancel();
     super.dispose();
+  }
+}
+
+class ThemeNotifier extends StateNotifier<ThemeMode> {
+  ThemeNotifier(this._hive) : super(_hive.readThemeMode());
+
+  final HiveDataSource _hive;
+
+  Future<void> setTheme(ThemeMode mode) async {
+    await _hive.writeThemeMode(mode);
+    state = mode;
+  }
+}
+
+class AppSettings {
+  const AppSettings({this.sizeSystem = 'EU', this.useInches = false});
+
+  final String sizeSystem;
+  final bool useInches;
+}
+
+class AppSettingsNotifier extends StateNotifier<AppSettings> {
+  AppSettingsNotifier(this._hive) : super(AppSettings(sizeSystem: _hive.readSizeSystem(), useInches: _hive.readUseInches()));
+
+  final HiveDataSource _hive;
+
+  Future<void> setSizeSystem(String system) async {
+    await _hive.writeSizeSystem(system);
+    state = AppSettings(sizeSystem: system, useInches: state.useInches);
+  }
+
+  Future<void> setUseInches({required bool value}) async {
+    await _hive.writeUseInches(value: value);
+    state = AppSettings(sizeSystem: state.sizeSystem, useInches: value);
+  }
+}
+
+class RecentSearchesNotifier extends StateNotifier<List<String>> {
+  RecentSearchesNotifier(this._hive) : super(_hive.readRecentSearches());
+
+  final HiveDataSource _hive;
+
+  Future<void> add(String slug) async {
+    final updated = [slug, ...state.where((s) => s != slug)];
+    final trimmed = updated.length > 10 ? updated.sublist(0, 10) : updated;
+    await _hive.writeRecentSearches(trimmed);
+    state = trimmed;
+  }
+
+  Future<void> remove(String slug) async {
+    final updated = state.where((s) => s != slug).toList();
+    await _hive.writeRecentSearches(updated);
+    state = updated;
   }
 }

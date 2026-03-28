@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizesync/data/datasources/asset_data_source.dart';
 import 'package:sizesync/data/datasources/hive_data_source.dart';
@@ -55,3 +56,9 @@ final comparisonChartsProvider = FutureProvider.autoDispose
 final userProfileProvider = StateNotifierProvider<UserProfileNotifier, UserProfile?>((ref) => UserProfileNotifier(ref.watch(userRepositoryProvider)));
 final favoritesProvider = StateNotifierProvider<FavoritesNotifier, Set<String>>((ref) => FavoritesNotifier(ref.watch(userRepositoryProvider)));
 final historyProvider = StateNotifierProvider<HistoryNotifier, List<ConversionRecord>>((ref) => HistoryNotifier(ref.watch(userRepositoryProvider)));
+
+final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) => ThemeNotifier(ref.watch(hiveDataSourceProvider)));
+
+final appSettingsProvider = StateNotifierProvider<AppSettingsNotifier, AppSettings>((ref) => AppSettingsNotifier(ref.watch(hiveDataSourceProvider)));
+
+final recentSearchesProvider = StateNotifierProvider<RecentSearchesNotifier, List<String>>((ref) => RecentSearchesNotifier(ref.watch(hiveDataSourceProvider)));

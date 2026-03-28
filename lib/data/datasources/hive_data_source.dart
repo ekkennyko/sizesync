@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sizesync/core/constants/app_constants.dart';
 
@@ -46,6 +47,29 @@ class HiveDataSource {
   bool readIsPremium() => (_settingsBox.get(AppConstants.hivePremiumKey) as bool?) ?? false;
 
   Future<void> writeIsPremium({required bool value}) => _settingsBox.put(AppConstants.hivePremiumKey, value);
+
+  ThemeMode readThemeMode() {
+    final index = (_settingsBox.get(AppConstants.hiveThemeModeKey) as int?) ?? 0;
+    return ThemeMode.values[index.clamp(0, 2)];
+  }
+
+  Future<void> writeThemeMode(ThemeMode mode) => _settingsBox.put(AppConstants.hiveThemeModeKey, mode.index);
+
+  String readSizeSystem() => (_settingsBox.get(AppConstants.hiveSizeSystemKey) as String?) ?? 'EU';
+
+  Future<void> writeSizeSystem(String system) => _settingsBox.put(AppConstants.hiveSizeSystemKey, system);
+
+  bool readUseInches() => (_settingsBox.get(AppConstants.hiveUseInchesKey) as bool?) ?? false;
+
+  Future<void> writeUseInches({required bool value}) => _settingsBox.put(AppConstants.hiveUseInchesKey, value);
+
+  List<String> readRecentSearches() {
+    final data = _settingsBox.get(AppConstants.hiveRecentSearchesKey);
+    if (data == null) return [];
+    return List<String>.from(data as List);
+  }
+
+  Future<void> writeRecentSearches(List<String> slugs) => _settingsBox.put(AppConstants.hiveRecentSearchesKey, slugs);
 
   Box<dynamic> get settingsBox => _settingsBox;
 }

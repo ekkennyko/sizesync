@@ -8,6 +8,7 @@ import 'package:sizesync/data/models/size_entry.dart';
 import 'package:sizesync/features/converter/brand_picker_sheet.dart';
 import 'package:sizesync/features/converter/converter_state.dart';
 import 'package:sizesync/shared/providers/providers.dart';
+import 'package:sizesync/shared/widgets/brand_search_delegate.dart';
 
 class ConverterScreen extends ConsumerWidget {
   const ConverterScreen({super.key});
@@ -22,7 +23,10 @@ class ConverterScreen extends ConsumerWidget {
         actions: [
           if (kDebugMode)
             IconButton(icon: const Icon(Icons.delete_sweep), tooltip: 'Clear history (debug)', onPressed: () => ref.read(historyProvider.notifier).clear()),
-          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () => showSearch<void>(context: context, delegate: BrandSearchDelegate(ref)),
+          ),
         ],
       ),
       body: SingleChildScrollView(
