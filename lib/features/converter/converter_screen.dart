@@ -28,6 +28,8 @@ class ConverterScreen extends ConsumerWidget {
             icon: const Icon(Icons.search),
             onPressed: () => showSearch<void>(context: context, delegate: BrandSearchDelegate(ref)),
           ),
+          IconButton(icon: const Icon(Icons.person_outline), onPressed: () => context.push('/profile')),
+          IconButton(icon: const Icon(Icons.settings_outlined), onPressed: () => context.push('/settings')),
         ],
       ),
       body: SingleChildScrollView(
