@@ -122,7 +122,10 @@ class _PaywallScreenState extends ConsumerState<PaywallScreen> {
             ),
           ),
         ),
-        if (isLoading) ...[const ModalBarrier(dismissible: false, color: Colors.black26), const Center(child: CircularProgressIndicator())],
+        if (isLoading) ...[
+          ModalBarrier(dismissible: false, color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.26)),
+          const Center(child: CircularProgressIndicator()),
+        ],
       ],
     );
   }

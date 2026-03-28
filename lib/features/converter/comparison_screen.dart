@@ -388,7 +388,7 @@ class _TableDataRow extends StatelessWidget {
             child: !row.labelsMatch && row.matchedSizeB != null
                 ? Text(
                     '≠',
-                    style: TextStyle(color: Colors.orange.shade700, fontWeight: FontWeight.bold, fontSize: 13),
+                    style: TextStyle(color: theme.colorScheme.error, fontWeight: FontWeight.bold, fontSize: 13),
                   )
                 : null,
           ),

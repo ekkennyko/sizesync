@@ -308,12 +308,12 @@ class _ResultCard extends StatelessWidget {
                     Icon(
                       isExact ? Icons.check_circle_outline : Icons.info_outline,
                       size: 14,
-                      color: isExact ? theme.colorScheme.primary : Colors.orange.shade700,
+                      color: isExact ? theme.colorScheme.primary : theme.colorScheme.error,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       isExact ? 'Точное совпадение' : 'Приблизительно',
-                      style: theme.textTheme.labelSmall?.copyWith(color: isExact ? theme.colorScheme.primary : Colors.orange.shade700),
+                      style: theme.textTheme.labelSmall?.copyWith(color: isExact ? theme.colorScheme.primary : theme.colorScheme.error),
                     ),
                   ],
                 ),
