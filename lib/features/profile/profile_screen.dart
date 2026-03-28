@@ -171,7 +171,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   controller: _chestCtrl,
                   focusNode: _chestFocus,
                   onChanged: (_) => setState(() {}),
-                  validator: _rangeValidator('Chest', 70, 160),
+                  validator: _rangeValidator('Chest', 75, 140),
                   onHelpTap: () => _showHowToMeasure(context, 'chest'),
                 ),
               _MeasurementField(
