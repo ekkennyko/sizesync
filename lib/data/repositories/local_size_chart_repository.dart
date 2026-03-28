@@ -97,8 +97,8 @@ class LocalSizeChartRepository implements SizeChartRepository {
       if (profile.hipsCm! < range.min || profile.hipsCm! > range.max) return false;
     }
 
-    if (profile.footLengthCm != null && entry.values['foot'] != null) {
-      final range = entry.values['foot']!;
+    if (profile.footLengthCm != null && entry.values['foot_length'] != null) {
+      final range = entry.values['foot_length']!;
       checksPerformed++;
       if (profile.footLengthCm! < range.min || profile.footLengthCm! > range.max) return false;
     }
