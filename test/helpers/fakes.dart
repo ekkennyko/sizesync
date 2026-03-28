@@ -12,11 +12,6 @@ import 'package:sizesync/domain/repositories/brand_repository.dart';
 import 'package:sizesync/domain/repositories/size_chart_repository.dart';
 import 'package:sizesync/domain/repositories/user_repository.dart';
 
-// ---------------------------------------------------------------------------
-// FakeAssetDataSource
-//
-// Returns charts by the key '$brandSlug/$gender/$chartId'.
-// ---------------------------------------------------------------------------
 class FakeAssetDataSource extends AssetDataSource {
   FakeAssetDataSource({Map<String, SizeChart?> charts = const {}, List<Brand> brands = const [], List<Category> categories = const []})
     : _charts = charts,
@@ -46,11 +41,6 @@ class FakeAssetDataSource extends AssetDataSource {
   }
 }
 
-// ---------------------------------------------------------------------------
-// FakeHiveDataSource
-//
-// In-memory replacement for HiveDataSource — no Hive initialisation needed.
-// ---------------------------------------------------------------------------
 class FakeHiveDataSource extends HiveDataSource {
   Map<String, dynamic>? _profile;
   List<String> _favorites = [];
@@ -116,9 +106,6 @@ class FakeHiveDataSource extends HiveDataSource {
   Future<void> writeOnboardingComplete() async {}
 }
 
-// ---------------------------------------------------------------------------
-// FakeUserRepository
-// ---------------------------------------------------------------------------
 class FakeUserRepository implements UserRepository {
   UserProfile? _profile;
   final List<String> _favorites = [];
@@ -152,9 +139,6 @@ class FakeUserRepository implements UserRepository {
   Future<void> clearHistory() async => _history.clear();
 }
 
-// ---------------------------------------------------------------------------
-// FakeSizeChartRepository
-// ---------------------------------------------------------------------------
 class FakeSizeChartRepository implements SizeChartRepository {
   FakeSizeChartRepository({SizeChart? chart, ConversionResult? convertResult, SizeEntry? recommendResult})
     : _chart = chart,
@@ -182,9 +166,6 @@ class FakeSizeChartRepository implements SizeChartRepository {
       _recommendResult;
 }
 
-// ---------------------------------------------------------------------------
-// FakeBrandRepository
-// ---------------------------------------------------------------------------
 class FakeBrandRepository implements BrandRepository {
   FakeBrandRepository({List<Brand> brands = const []}) : _brands = brands;
 
@@ -202,10 +183,6 @@ class FakeBrandRepository implements BrandRepository {
   @override
   Future<Brand?> getBrandBySlug(String slug) async => _brands.where((b) => b.slug == slug).firstOrNull;
 }
-
-// ---------------------------------------------------------------------------
-// Common fixture data
-// ---------------------------------------------------------------------------
 
 final fixtureBrandZara = Brand(
   name: 'Zara',
