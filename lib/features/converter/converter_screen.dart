@@ -266,8 +266,8 @@ class _SizeGrid extends ConsumerWidget {
       data: (sizes) {
         if (sizes.isEmpty) return const SizedBox.shrink();
         return Wrap(
-          spacing: 8,
-          runSpacing: 8,
+          spacing: 10,
+          runSpacing: 10,
           children: sizes.map((entry) {
             return _SizeChip(
               label: entry.label,
@@ -291,25 +291,28 @@ class _SizeChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Material(
-      color: isSelected ? theme.colorScheme.primary : theme.colorScheme.surfaceContainerHighest,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: isSelected ? BorderSide.none : BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.4)),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            child: Center(
-              child: Text(
-                label,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: isSelected ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface,
-                  fontWeight: isSelected ? FontWeight.w600 : null,
+    return IntrinsicWidth(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: 56, minHeight: 56),
+        child: Material(
+          color: isSelected ? theme.colorScheme.primary : theme.colorScheme.surfaceContainerHighest,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: isSelected ? BorderSide.none : BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.5), width: 0.5),
+          ),
+          child: InkWell(
+            onTap: onTap,
+            customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              child: Center(
+                child: Text(
+                  label,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: isSelected ? theme.colorScheme.onPrimary : theme.colorScheme.primary,
+                  ),
                 ),
               ),
             ),
