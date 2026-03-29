@@ -196,62 +196,69 @@ class _SizeTable extends StatelessWidget {
     final bodyStyle = theme.textTheme.bodyMedium;
     final sorted = [...chart.sizes]..sort((a, b) => a.order.compareTo(b.order));
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 6),
-            child: Row(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minWidth: constraints.maxWidth),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: _kLabelW,
-                  child: Text('Size', style: labelStyle),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: _kLabelW,
+                        child: Text('Size', style: labelStyle),
+                      ),
+                      SizedBox(
+                        width: _kSystemW,
+                        child: Text('EU', style: labelStyle),
+                      ),
+                      SizedBox(
+                        width: _kSystemW,
+                        child: Text('US', style: labelStyle),
+                      ),
+                      SizedBox(
+                        width: _kSystemW,
+                        child: Text('UK', style: labelStyle),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(
-                  width: _kSystemW,
-                  child: Text('EU', style: labelStyle),
-                ),
-                SizedBox(
-                  width: _kSystemW,
-                  child: Text('US', style: labelStyle),
-                ),
-                SizedBox(
-                  width: _kSystemW,
-                  child: Text('UK', style: labelStyle),
+                const Divider(height: 1),
+                ...sorted.map(
+                  (s) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: _kLabelW,
+                          child: Text(s.label, style: bodyStyle?.copyWith(fontWeight: FontWeight.w500)),
+                        ),
+                        SizedBox(
+                          width: _kSystemW,
+                          child: Text(s.eu.isEmpty ? '—' : s.eu.join(', '), style: bodyStyle),
+                        ),
+                        SizedBox(
+                          width: _kSystemW,
+                          child: Text(s.us.isEmpty ? '—' : s.us.join(', '), style: bodyStyle),
+                        ),
+                        SizedBox(
+                          width: _kSystemW,
+                          child: Text(s.uk.isEmpty ? '—' : s.uk.join(', '), style: bodyStyle),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-          const Divider(height: 1),
-          ...sorted.map(
-            (s) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: _kLabelW,
-                    child: Text(s.label, style: bodyStyle?.copyWith(fontWeight: FontWeight.w500)),
-                  ),
-                  SizedBox(
-                    width: _kSystemW,
-                    child: Text(s.eu.isEmpty ? '—' : s.eu.join(', '), style: bodyStyle),
-                  ),
-                  SizedBox(
-                    width: _kSystemW,
-                    child: Text(s.us.isEmpty ? '—' : s.us.join(', '), style: bodyStyle),
-                  ),
-                  SizedBox(
-                    width: _kSystemW,
-                    child: Text(s.uk.isEmpty ? '—' : s.uk.join(', '), style: bodyStyle),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -268,7 +275,8 @@ class _RecommendedSizes extends ConsumerWidget {
 
     if (profile == null) return const SizedBox.shrink();
 
-    final hasProfile = profile.bustCm != null || profile.chestCm != null || profile.waistCm != null || profile.hipsCm != null || profile.footLengthCm != null;
+    final primaryMeasurement = gender == 'men' ? profile.chestCm : profile.bustCm;
+    final hasProfile = primaryMeasurement != null || profile.waistCm != null || profile.hipsCm != null || profile.footLengthCm != null;
 
     if (!hasProfile) {
       final theme = Theme.of(context);
