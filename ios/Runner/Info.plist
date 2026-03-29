@@ -68,5 +68,7 @@
 		</array>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>SizeSync needs access to save size comparison screenshots to your photo library.</string>
 	</dict>
 </plist>

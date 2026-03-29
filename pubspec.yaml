@@ -4,6 +4,9 @@ flutter_native_splash:
   android: true
   ios: true
   web: false
+  android_12:
+    color: "#2E7D32"
+    image: assets/splash/logo.png
 
 flutter_launcher_icons:
   android: "launcher_icon"
