@@ -24,6 +24,12 @@ class ConverterScreen extends ConsumerWidget {
         actions: [
           if (kDebugMode)
             IconButton(icon: const Icon(Icons.delete_sweep), tooltip: 'Clear history (debug)', onPressed: () => ref.read(historyProvider.notifier).clear()),
+          if (state.fromBrand != null && state.toBrand != null)
+            IconButton(
+              icon: const Icon(Icons.compare_arrows),
+              tooltip: 'Compare tables',
+              onPressed: () => context.push('/comparison?a=${state.fromBrand!.slug}&b=${state.toBrand!.slug}'),
+            ),
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () => showSearch<void>(context: context, delegate: BrandSearchDelegate(ref)),
@@ -33,39 +39,27 @@ class ConverterScreen extends ConsumerWidget {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 8),
             const _FavoritesSection(),
-            _BrandRow(fromBrand: state.fromBrand, toBrand: state.toBrand),
-            if (state.fromBrand != null && state.toBrand != null) ...[
-              const SizedBox(height: 8),
-              OutlinedButton.icon(
-                icon: const Icon(Icons.compare_arrows, size: 18),
-                label: const Text('Compare tables'),
-                style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(36)),
-                onPressed: () => context.push('/comparison?a=${state.fromBrand!.slug}&b=${state.toBrand!.slug}'),
-              ),
-            ],
-            const SizedBox(height: 12),
-            SegmentedButton<String>(
-              segments: const [
-                ButtonSegment(value: 'women', label: Text('Women')),
-                ButtonSegment(value: 'men', label: Text('Men')),
-              ],
-              selected: {state.gender},
-              onSelectionChanged: (s) => ref.read(converterProvider.notifier).setGender(s.first),
+            IntrinsicHeight(
+              child: _BrandRow(fromBrand: state.fromBrand, toBrand: state.toBrand),
             ),
             const SizedBox(height: 12),
-            _CategoryChips(selected: state.categorySlug),
-            const SizedBox(height: 16),
+            const _FilterRow(),
+            const SizedBox(height: 12),
             if (state.fromBrand != null)
               _SizeGrid(brandSlug: state.fromBrand!.slug, gender: state.gender, categorySlug: state.categorySlug, selectedLabel: state.selectedSizeLabel),
-            const SizedBox(height: 16),
-            if (state.result != null) _ResultCard(result: state.result!, toBrand: state.toBrand!, recommendedSize: state.recommendedSize),
-            const SizedBox(height: 8),
+            if (state.result != null) ...[
+              const SizedBox(height: 12),
+              _ResultCard(result: state.result!, toBrand: state.toBrand!, recommendedSize: state.recommendedSize),
+            ],
+            const SizedBox(height: 12),
             const _RecentSection(),
+            const SizedBox(height: 16),
           ],
         ),
       ),
@@ -82,6 +76,7 @@ class _BrandRow extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(
           child: _BrandCard(
@@ -129,18 +124,20 @@ class _BrandCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label, style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.outline)),
+                Text(label, style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.outline)),
                 const SizedBox(height: 6),
                 Text(
                   brand?.name ?? 'Select',
-                  style: theme.textTheme.titleMedium?.copyWith(color: brand == null ? theme.colorScheme.outline : null, fontWeight: FontWeight.w600),
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: brand == null ? theme.colorScheme.outline : null,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                if (brand != null) ...[
-                  const SizedBox(height: 2),
-                  Text(brand!.country, style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.outline)),
-                ],
+                const SizedBox(height: 2),
+                Text(brand?.country ?? '', style: theme.textTheme.bodySmall?.copyWith(fontSize: 13, color: theme.colorScheme.outline)),
               ],
             ),
           ),
@@ -174,6 +171,36 @@ class _SwapButtonState extends State<_SwapButton> {
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
       child: IconButton(icon: const Icon(Icons.swap_horiz), onPressed: _handleTap),
+    );
+  }
+}
+
+class _FilterRow extends ConsumerWidget {
+  const _FilterRow();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(converterProvider);
+    final theme = Theme.of(context);
+
+    return Row(
+      children: [
+        SegmentedButton<String>(
+          segments: const [
+            ButtonSegment(value: 'women', label: Text('Women')),
+            ButtonSegment(value: 'men', label: Text('Men')),
+          ],
+          selected: {state.gender},
+          onSelectionChanged: (s) => ref.read(converterProvider.notifier).setGender(s.first),
+          style: const ButtonStyle(visualDensity: VisualDensity.compact, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+        ),
+        if (state.fromBrand != null) ...[
+          const SizedBox(width: 12),
+          Container(width: 1, height: 20, color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+          const SizedBox(width: 12),
+          Expanded(child: _CategoryChips(selected: state.categorySlug)),
+        ],
+      ],
     );
   }
 }
@@ -232,35 +259,63 @@ class _SizeGrid extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final sizesAsync = ref.watch(fromSizeEntriesProvider((brandSlug: brandSlug, gender: gender, categorySlug: categorySlug)));
-    final theme = Theme.of(context);
 
     return sizesAsync.when(
       loading: () => const SizedBox.shrink(),
       error: (e, _) => Text('Error: $e'),
       data: (sizes) {
         if (sizes.isEmpty) return const SizedBox.shrink();
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Select size', style: theme.textTheme.labelLarge),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: sizes.map((entry) {
-                final isSelected = entry.label == selectedLabel;
-                return FilterChip(
-                  label: Text(entry.label),
-                  selected: isSelected,
-                  onSelected: (_) => ref.read(converterProvider.notifier).selectSize(entry.label),
-                  selectedColor: theme.colorScheme.primary,
-                  labelStyle: isSelected ? TextStyle(color: theme.colorScheme.onPrimary, fontWeight: FontWeight.bold) : null,
-                );
-              }).toList(),
-            ),
-          ],
+        return Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: sizes.map((entry) {
+            return _SizeChip(
+              label: entry.label,
+              isSelected: entry.label == selectedLabel,
+              onTap: () => ref.read(converterProvider.notifier).selectSize(entry.label),
+            );
+          }).toList(),
         );
       },
+    );
+  }
+}
+
+class _SizeChip extends StatelessWidget {
+  const _SizeChip({required this.label, required this.isSelected, required this.onTap});
+
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Material(
+      color: isSelected ? theme.colorScheme.primary : theme.colorScheme.surfaceContainerHighest,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: isSelected ? BorderSide.none : BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.4)),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            child: Center(
+              child: Text(
+                label,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: isSelected ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface,
+                  fontWeight: isSelected ? FontWeight.w600 : null,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -287,44 +342,33 @@ class _ResultCard extends StatelessWidget {
       children: [
         Card(
           elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-            side: BorderSide(color: theme.colorScheme.primary.withValues(alpha: 0.4)),
-          ),
+          color: theme.colorScheme.surfaceContainerHighest,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Your size in ${toBrand.name}', style: theme.textTheme.bodyMedium),
+                Text('Your size in ${toBrand.name}', style: theme.textTheme.bodySmall?.copyWith(fontSize: 14, color: theme.colorScheme.onSurfaceVariant)),
                 const SizedBox(height: 4),
-                Text(
-                  result.toSize.label,
-                  style: theme.textTheme.displaySmall?.copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(
-                      isExact ? Icons.check_circle_outline : Icons.info_outline,
-                      size: 14,
-                      color: isExact ? theme.colorScheme.primary : theme.colorScheme.error,
-                    ),
-                    const SizedBox(width: 4),
                     Text(
-                      isExact ? 'Точное совпадение' : 'Приблизительно',
-                      style: theme.textTheme.labelSmall?.copyWith(color: isExact ? theme.colorScheme.primary : theme.colorScheme.error),
+                      result.toSize.label,
+                      style: theme.textTheme.headlineLarge?.copyWith(fontSize: 32, fontWeight: FontWeight.bold, color: theme.colorScheme.primary),
                     ),
+                    const SizedBox(width: 12),
+                    _MatchBadge(isExact: isExact),
                   ],
                 ),
                 if (mappings.isNotEmpty) ...[
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 8),
                   Wrap(
                     spacing: 16,
                     children: mappings.map((m) {
                       return RichText(
                         text: TextSpan(
-                          style: theme.textTheme.bodySmall,
+                          style: theme.textTheme.bodySmall?.copyWith(fontSize: 13),
                           children: [
                             TextSpan(
                               text: '${m.$1} ',
@@ -332,7 +376,7 @@ class _ResultCard extends StatelessWidget {
                             ),
                             TextSpan(
                               text: m.$2,
-                              style: const TextStyle(fontWeight: FontWeight.w600),
+                              style: TextStyle(color: theme.colorScheme.onSurfaceVariant, fontWeight: FontWeight.w600),
                             ),
                           ],
                         ),
@@ -368,6 +412,33 @@ class _ResultCard extends StatelessWidget {
           ),
         ],
       ],
+    );
+  }
+}
+
+class _MatchBadge extends StatelessWidget {
+  const _MatchBadge({required this.isExact});
+
+  final bool isExact;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final color = isExact ? Colors.green.shade700 : theme.colorScheme.error;
+    final bgColor = isExact ? Colors.green.withValues(alpha: 0.15) : theme.colorScheme.errorContainer;
+    final icon = isExact ? Icons.check : Icons.info_outline;
+    final label = isExact ? 'Точное совпадение' : 'Приблизительно';
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(8)),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 12, color: color),
+          const SizedBox(width: 4),
+          Text(label, style: theme.textTheme.labelSmall?.copyWith(color: color)),
+        ],
+      ),
     );
   }
 }
