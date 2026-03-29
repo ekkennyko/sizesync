@@ -7,7 +7,7 @@
 		"size_charts": [
 			{
 				"chart_id": "tops",
-				"name": "Women's Tops",
+				"name": "Tops",
 				"garment_type": "tops",
 				"applicable_categories": [
 					"tops",
@@ -92,7 +92,7 @@
 		"size_charts": [
 			{
 				"chart_id": "tops",
-				"name": "Men's Tops",
+				"name": "Tops",
 				"garment_type": "tops",
 				"applicable_categories": ["tops", "tshirts", "shirts"],
 				"measurements": ["chest", "waist"],

@@ -7,7 +7,7 @@
 		"size_charts": [
 			{
 				"chart_id": "tops",
-				"name": "Women's Tops",
+				"name": "Tops",
 				"garment_type": "tops",
 				"applicable_categories": ["tops", "blouses", "tshirts", "shirts"],
 				"measurements": ["bust", "waist"],
@@ -23,7 +23,7 @@
 			},
 			{
 				"chart_id": "bottoms",
-				"name": "Women's Bottoms",
+				"name": "Bottoms",
 				"garment_type": "bottoms",
 				"applicable_categories": ["bottoms", "jeans", "trousers", "skirts"],
 				"measurements": ["waist", "hips"],

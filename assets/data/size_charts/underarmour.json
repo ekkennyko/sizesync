@@ -7,7 +7,7 @@
 		"size_charts": [
 			{
 				"chart_id": "tops",
-				"name": "Women's Tops",
+				"name": "Tops",
 				"garment_type": "tops",
 				"applicable_categories": ["tops", "tshirts", "shirts"],
 				"measurements": ["bust", "waist"],
@@ -23,7 +23,7 @@
 			},
 			{
 				"chart_id": "bottoms",
-				"name": "Women's Bottoms",
+				"name": "Bottoms",
 				"garment_type": "bottoms",
 				"applicable_categories": ["bottoms", "trousers", "leggings"],
 				"measurements": ["waist", "hips"],
@@ -39,7 +39,7 @@
 			},
 			{
 				"chart_id": "shoes",
-				"name": "Women's Shoes",
+				"name": "Shoes",
 				"garment_type": "shoes",
 				"applicable_categories": ["shoes"],
 				"measurements": ["foot_length"],
@@ -59,7 +59,7 @@
 		"size_charts": [
 			{
 				"chart_id": "tops",
-				"name": "Men's Tops",
+				"name": "Tops",
 				"garment_type": "tops",
 				"applicable_categories": ["tops", "tshirts", "shirts"],
 				"measurements": ["chest", "waist"],
@@ -75,7 +75,7 @@
 			},
 			{
 				"chart_id": "bottoms",
-				"name": "Men's Bottoms",
+				"name": "Bottoms",
 				"garment_type": "bottoms",
 				"applicable_categories": ["bottoms", "trousers", "shorts"],
 				"measurements": ["waist"],
@@ -91,7 +91,7 @@
 			},
 			{
 				"chart_id": "shoes",
-				"name": "Men's Shoes",
+				"name": "Shoes",
 				"garment_type": "shoes",
 				"applicable_categories": ["shoes"],
 				"measurements": ["foot_length"],

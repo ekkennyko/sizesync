@@ -7,7 +7,7 @@
 		"size_charts": [
 			{
 				"chart_id": "shoes",
-				"name": "Women's Shoes",
+				"name": "Shoes",
 				"garment_type": "shoes",
 				"applicable_categories": ["shoes"],
 				"measurements": ["foot_length"],
@@ -28,7 +28,7 @@
 		"size_charts": [
 			{
 				"chart_id": "shoes",
-				"name": "Men's Shoes",
+				"name": "Shoes",
 				"garment_type": "shoes",
 				"applicable_categories": ["shoes"],
 				"measurements": ["foot_length"],
